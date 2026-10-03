@@ -15,561 +15,644 @@
     padding:0;
 }
 
-html,body{
-    width:100%;
-    min-height:100%;
+html{
+    scroll-behavior:smooth;
 }
 
 body{
-    background:#080909;
-    color:#d9d9d4;
+    background:#08090b;
+    color:#d8d9dc;
     font-family:'Noto Sans KR',sans-serif;
-    overflow-x:hidden;
+    min-width:1000px;
 }
 
-/* ---------------- BACKGROUND ---------------- */
+/* =========================
+   GLOBAL
+========================= */
 
-body::before{
-    content:"";
-    position:fixed;
-    inset:0;
-    pointer-events:none;
-    opacity:.16;
-    background-image:
-        linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
-        linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
-    background-size:40px 40px;
+a{
+    color:inherit;
+    text-decoration:none;
 }
 
-body::after{
-    content:"";
-    position:fixed;
-    inset:0;
-    pointer-events:none;
-    background:
-        radial-gradient(circle at 50% 0%,rgba(170,190,175,.08),transparent 35%),
-        radial-gradient(circle at 90% 80%,rgba(120,130,150,.04),transparent 30%);
+.container{
+    width:1100px;
+    margin:auto;
 }
 
-/* ---------------- HEADER ---------------- */
+.mono{
+    font-family:'DM Mono',monospace;
+}
+
+.serif{
+    font-family:'Playfair Display',serif;
+}
+
+/* =========================
+   HEADER
+========================= */
 
 header{
-    position:relative;
-    z-index:2;
-    height:78px;
-    border-bottom:1px solid #272927;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    min-width:1000px;
+    height:68px;
+
+    background:rgba(8,9,11,.94);
+    border-bottom:1px solid #272a2f;
+
+    backdrop-filter:blur(15px);
+
+    z-index:1000;
+}
+
+.header-inner{
+    width:1100px;
+    height:100%;
+    margin:auto;
+
     display:flex;
     align-items:center;
     justify-content:space-between;
-    padding:0 55px;
-    background:rgba(8,9,9,.94);
 }
 
 .logo{
-    display:flex;
-    align-items:center;
-    gap:15px;
-}
-
-.logo-mark{
-    width:29px;
-    height:29px;
-    border:1px solid #737970;
-    display:flex;
-    align-items:center;
-    justify-content:center;
     font-family:'DM Mono',monospace;
-    font-size:11px;
-    color:#bfc6bd;
-}
-
-.logo-text{
-    font-family:'DM Mono',monospace;
-    font-size:13px;
+    font-size:14px;
     letter-spacing:3px;
-    color:#e5e7e2;
+    color:#f0f0f0;
 }
 
-.status{
+.logo span{
+    color:#737780;
+}
+
+nav{
+    display:flex;
+    gap:25px;
+}
+
+nav a{
     font-family:'DM Mono',monospace;
     font-size:10px;
     letter-spacing:1px;
-    color:#71776f;
+    color:#777b82;
+    transition:.2s;
 }
 
-.status span{
-    color:#aeb9aa;
+nav a:hover{
+    color:#fff;
 }
 
-/* ---------------- MAIN ---------------- */
-
-main{
-    position:relative;
-    z-index:1;
-    max-width:1380px;
-    margin:auto;
-    padding:70px 55px 100px;
-}
-
-/* ---------------- HERO ---------------- */
+/* =========================
+   HERO
+========================= */
 
 .hero{
-    min-height:400px;
-    border:1px solid #292c29;
+    height:720px;
     position:relative;
-    display:flex;
-    flex-direction:column;
-    justify-content:flex-end;
-    padding:48px;
     overflow:hidden;
-    background:
-        linear-gradient(90deg,rgba(8,9,9,.98),rgba(8,9,9,.70)),
-        radial-gradient(circle at 75% 45%,#303a34,transparent 42%),
-        #0d0f0e;
+
+    display:flex;
+    align-items:center;
+
+    border-bottom:1px solid #24272c;
 }
 
 .hero::before{
-    content:"WORLD DATABASE / 2100—";
-    position:absolute;
-    top:25px;
-    left:28px;
-    font-family:'DM Mono',monospace;
-    font-size:10px;
-    letter-spacing:2px;
-    color:#5e655e;
-}
-
-.hero::after{
     content:"";
     position:absolute;
-    width:500px;
-    height:500px;
-    border:1px solid rgba(190,200,190,.05);
-    border-radius:50%;
-    right:-170px;
-    top:-100px;
-    box-shadow:
-        0 0 0 80px rgba(190,200,190,.015),
-        0 0 0 160px rgba(190,200,190,.01);
+    inset:0;
+
+    background:
+        radial-gradient(circle at 70% 35%,rgba(120,125,145,.10),transparent 35%),
+        radial-gradient(circle at 25% 75%,rgba(255,255,255,.035),transparent 30%);
+}
+
+.hero-grid{
+    position:absolute;
+    inset:0;
+
+    background-image:
+        linear-gradient(#ffffff06 1px,transparent 1px),
+        linear-gradient(90deg,#ffffff06 1px,transparent 1px);
+
+    background-size:80px 80px;
+
+    mask-image:linear-gradient(to bottom,black,transparent);
+}
+
+.hero-content{
+    position:relative;
+    z-index:2;
 }
 
 .hero-small{
     font-family:'DM Mono',monospace;
-    color:#899188;
-    letter-spacing:3px;
+    color:#666b73;
     font-size:11px;
-    margin-bottom:18px;
+    letter-spacing:3px;
+    margin-bottom:22px;
 }
 
 .hero h1{
     font-family:'Playfair Display',serif;
-    font-size:clamp(50px,7vw,92px);
+    font-size:78px;
     font-weight:400;
     letter-spacing:-3px;
-    color:#eceee9;
     line-height:.95;
+    color:#f0f0f1;
 }
 
-.hero p{
-    margin-top:25px;
-    max-width:680px;
-    line-height:1.9;
-    color:#969c95;
+.hero h1 span{
+    display:block;
+    color:#71757d;
+}
+
+.hero-description{
+    margin-top:32px;
+    width:550px;
+
+    color:#8b8e95;
     font-size:13px;
+    line-height:2;
 }
 
-.hero-line{
-    width:70px;
-    height:1px;
-    background:#818b80;
-    margin-top:30px;
+.hero-status{
+    margin-top:35px;
+
+    display:flex;
+    gap:12px;
+    align-items:center;
+
+    font-family:'DM Mono',monospace;
+    font-size:9px;
+    color:#656970;
+    letter-spacing:1px;
 }
 
-/* ---------------- SECTION ---------------- */
+.status-dot{
+    width:6px;
+    height:6px;
+    border-radius:50%;
+    background:#a9b0b8;
+    box-shadow:0 0 10px #a9b0b8;
+}
 
-.section{
-    margin-top:85px;
+/* =========================
+   SECTION
+========================= */
+
+section{
+    padding:110px 0;
+    border-bottom:1px solid #202328;
 }
 
 .section-head{
     display:flex;
-    align-items:flex-end;
     justify-content:space-between;
-    border-bottom:1px solid #292c29;
-    padding-bottom:16px;
-    margin-bottom:30px;
-}
+    align-items:flex-end;
 
-.section-title{
-    font-family:'DM Mono',monospace;
-    font-size:12px;
-    letter-spacing:3px;
-    color:#c8cec7;
+    margin-bottom:55px;
 }
 
 .section-number{
     font-family:'DM Mono',monospace;
-    color:#555b55;
     font-size:10px;
+    color:#5c6067;
+    letter-spacing:2px;
 }
 
-/* ---------------- WORLD OVERVIEW ---------------- */
+.section-title{
+    font-family:'Playfair Display',serif;
+    font-size:42px;
+    font-weight:400;
+    color:#eeeef0;
+}
+
+.section-sub{
+    font-family:'DM Mono',monospace;
+    font-size:9px;
+    letter-spacing:1px;
+    color:#5d6269;
+}
+
+/* =========================
+   WORLD OVERVIEW
+========================= */
 
 .overview{
     display:grid;
-    grid-template-columns:1.5fr 1fr 1fr;
-    gap:1px;
-    background:#292c29;
-    border:1px solid #292c29;
+    grid-template-columns:1.3fr .7fr;
+    gap:70px;
 }
 
-.overview-box{
-    background:#0c0e0d;
-    min-height:170px;
-    padding:30px;
+.overview-main{
+    font-size:14px;
+    line-height:2.1;
+    color:#a2a5ab;
 }
 
-.overview-label{
-    font-family:'DM Mono',monospace;
-    font-size:9px;
-    letter-spacing:2px;
-    color:#646b64;
-    margin-bottom:18px;
+.overview-main strong{
+    color:#e2e3e5;
+    font-weight:500;
 }
 
-.overview-value{
-    font-family:'Playfair Display',serif;
-    font-size:28px;
-    color:#e0e3de;
+.data-list{
+    border-top:1px solid #2b2e34;
 }
 
-.overview-desc{
-    margin-top:13px;
-    color:#777d77;
+.data-row{
+    min-height:48px;
+    border-bottom:1px solid #25282d;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
     font-size:11px;
-    line-height:1.8;
 }
 
-/* ---------------- REGION GRID ---------------- */
+.data-row span:first-child{
+    font-family:'DM Mono',monospace;
+    color:#5e636a;
+}
+
+.data-row span:last-child{
+    color:#bfc2c7;
+}
+
+/* =========================
+   REGION CARDS
+========================= */
 
 .regions{
     display:grid;
     grid-template-columns:1fr 1fr;
-    gap:15px;
+    gap:18px;
 }
 
 .region{
-    min-height:330px;
-    border:1px solid #2a2d2a;
-    background:#0b0d0c;
     position:relative;
+    min-height:330px;
+
+    padding:30px;
+
+    border:1px solid #292c31;
+    background:#0c0e11;
+
     overflow:hidden;
     transition:.3s;
-}
-
-.region:hover{
-    border-color:#626a62;
-    transform:translateY(-3px);
 }
 
 .region::before{
     content:"";
     position:absolute;
-    inset:0;
-    background:
-        linear-gradient(135deg,transparent 60%,rgba(170,180,170,.035));
-    pointer-events:none;
+    width:220px;
+    height:220px;
+    border-radius:50%;
+
+    right:-80px;
+    bottom:-90px;
+
+    background:rgba(255,255,255,.025);
+
+    transition:.4s;
 }
 
-.region-top{
-    display:flex;
-    justify-content:space-between;
-    padding:24px 27px 0;
+.region:hover{
+    border-color:#555a62;
+    transform:translateY(-3px);
+}
+
+.region:hover::before{
+    transform:scale(1.4);
 }
 
 .region-code{
     font-family:'DM Mono',monospace;
+    color:#555a62;
     font-size:10px;
-    color:#616861;
     letter-spacing:2px;
 }
 
-.region-status{
-    font-family:'DM Mono',monospace;
-    font-size:9px;
-    color:#717971;
-}
+.region-name{
+    margin-top:80px;
 
-.region-content{
-    padding:45px 27px 27px;
-}
-
-.region h3{
     font-family:'Playfair Display',serif;
-    font-weight:400;
     font-size:38px;
-    color:#e4e7e1;
+    font-weight:400;
 }
 
-.region-kor{
-    font-size:11px;
-    color:#727970;
-    margin-top:4px;
+.region-city{
+    margin-top:8px;
+
+    font-family:'DM Mono',monospace;
+    color:#777b83;
+    font-size:10px;
 }
 
 .region-desc{
-    margin-top:22px;
-    font-size:12px;
-    line-height:1.9;
-    color:#8b918a;
-    max-width:430px;
-}
-
-.region-info{
     position:absolute;
-    bottom:24px;
-    left:27px;
-    right:27px;
-    display:flex;
-    gap:30px;
-    padding-top:15px;
-    border-top:1px solid #242724;
+    left:30px;
+    right:30px;
+    bottom:30px;
+
+    font-size:11px;
+    line-height:1.8;
+    color:#777b82;
 }
 
-.info-item{
-    display:flex;
-    flex-direction:column;
-    gap:5px;
+/* =========================
+   COUNTRY DETAIL
+========================= */
+
+.country{
+    padding-top:130px;
+}
+
+.country-header{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:70px;
+
+    margin-bottom:70px;
+}
+
+.country-code{
+    font-family:'DM Mono',monospace;
+    color:#5e636a;
+    font-size:10px;
+    letter-spacing:3px;
+}
+
+.country h3{
+    margin-top:14px;
+
+    font-family:'Playfair Display',serif;
+    font-size:54px;
+    font-weight:400;
+}
+
+.country-intro{
+    align-self:end;
+
+    font-size:13px;
+    line-height:2;
+    color:#898d94;
+}
+
+.country-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+}
+
+.info-box{
+    border:1px solid #292c31;
+    background:#0b0d10;
+    padding:30px;
+    min-height:190px;
 }
 
 .info-label{
     font-family:'DM Mono',monospace;
-    font-size:8px;
-    color:#555c55;
-    letter-spacing:1px;
+    font-size:9px;
+    color:#5c6168;
+    letter-spacing:2px;
 }
 
 .info-value{
-    font-size:10px;
-    color:#a0a69f;
+    margin-top:17px;
+    font-family:'Playfair Display',serif;
+    font-size:25px;
+    color:#dfe0e3;
 }
 
-/* ---------------- HISTORY ---------------- */
-
-.timeline{
-    position:relative;
-    border-left:1px solid #303430;
-    margin-left:14px;
+.info-text{
+    margin-top:13px;
+    font-size:11px;
+    line-height:1.9;
+    color:#777b83;
 }
+
+/* =========================
+   EVENT
+========================= */
 
 .event{
-    position:relative;
-    padding:0 0 42px 40px;
-}
-
-.event:last-child{
-    padding-bottom:0;
-}
-
-.event::before{
-    content:"";
-    position:absolute;
-    width:7px;
-    height:7px;
-    border:1px solid #8a9289;
-    background:#080909;
-    left:-4px;
-    top:4px;
+    border-left:1px solid #4c5158;
+    padding:5px 0 5px 28px;
+    margin-bottom:32px;
 }
 
 .event-year{
     font-family:'DM Mono',monospace;
-    font-size:11px;
-    color:#899188;
+    color:#686d75;
+    font-size:10px;
     letter-spacing:2px;
 }
 
-.event h3{
+.event-title{
     margin-top:8px;
     font-family:'Playfair Display',serif;
-    font-size:22px;
-    font-weight:400;
-    color:#dce0da;
+    font-size:25px;
 }
 
-.event p{
-    max-width:730px;
-    margin-top:9px;
+.event-text{
+    margin-top:10px;
+    color:#7e8289;
     font-size:11px;
     line-height:1.9;
-    color:#777d77;
 }
 
-/* ---------------- CHECKPOINT ---------------- */
+/* =========================
+   CHECKPOINT
+========================= */
 
 .checkpoint{
-    border:1px solid #333733;
-    display:grid;
-    grid-template-columns:1fr 1.4fr;
-    min-height:320px;
+    background:#0a0c0f;
 }
 
-.checkpoint-left{
-    padding:40px;
-    background:#101310;
-    border-right:1px solid #292c29;
-}
+.checkpoint-box{
+    border:1px solid #30343a;
+    padding:55px;
 
-.checkpoint-code{
-    font-family:'DM Mono',monospace;
-    font-size:9px;
-    letter-spacing:2px;
-    color:#626a62;
-}
-
-.checkpoint h2{
-    font-family:'Playfair Display',serif;
-    font-weight:400;
-    font-size:43px;
-    margin-top:25px;
-    color:#e5e8e3;
-}
-
-.checkpoint-sub{
-    font-size:11px;
-    color:#747b73;
-    margin-top:5px;
-}
-
-.checkpoint-right{
-    padding:40px;
-}
-
-.checkpoint-right p{
-    font-size:12px;
-    line-height:2;
-    color:#8d938c;
-}
-
-.rules{
     display:grid;
     grid-template-columns:1fr 1fr;
-    gap:1px;
-    background:#292c29;
-    margin-top:25px;
+    gap:60px;
+}
+
+.checkpoint-title{
+    font-family:'Playfair Display',serif;
+    font-size:42px;
+}
+
+.checkpoint-text{
+    margin-top:20px;
+    font-size:12px;
+    line-height:2;
+    color:#858990;
+}
+
+.rule-list{
+    border-top:1px solid #292d32;
 }
 
 .rule{
-    background:#0c0e0d;
-    padding:18px;
+    padding:18px 0;
+    border-bottom:1px solid #292d32;
+
+    display:flex;
+    justify-content:space-between;
+
+    font-size:11px;
 }
 
-.rule-number{
-    font-family:'DM Mono',monospace;
-    color:#555d56;
-    font-size:9px;
+.rule span:first-child{
+    color:#5d6269;
 }
 
-.rule-text{
-    margin-top:7px;
-    font-size:10px;
-    color:#a2a79f;
+.rule span:last-child{
+    color:#b9bcc1;
 }
 
-/* ---------------- PERMITS ---------------- */
+/* =========================
+   DOCUMENTS
+========================= */
 
 .documents{
     display:grid;
     grid-template-columns:repeat(3,1fr);
-    gap:15px;
+    gap:18px;
 }
 
 .document{
-    border:1px solid #292c29;
-    padding:27px;
-    background:#0b0d0c;
-    min-height:190px;
+    min-height:210px;
+    padding:28px;
+
+    border:1px solid #292c31;
+    background:#0c0e11;
 }
 
-.document-code{
+.document-number{
     font-family:'DM Mono',monospace;
-    font-size:9px;
-    color:#606860;
+    color:#555b63;
+    font-size:10px;
 }
 
-.document h3{
+.document h4{
+    margin-top:35px;
+
     font-family:'Playfair Display',serif;
-    font-size:23px;
+    font-size:22px;
     font-weight:400;
-    margin-top:20px;
-    color:#d9ddd7;
 }
 
 .document p{
+    margin-top:12px;
+
     font-size:10px;
     line-height:1.8;
-    color:#737a72;
-    margin-top:10px;
+    color:#747980;
 }
 
-/* ---------------- FOOTER ---------------- */
+/* =========================
+   PRODUCTS
+========================= */
 
-footer{
-    border-top:1px solid #272927;
-    padding:30px 55px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    color:#555b55;
+.products{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:18px;
+}
+
+.product{
+    padding:30px;
+    border:1px solid #292c31;
+}
+
+.product-country{
     font-family:'DM Mono',monospace;
     font-size:9px;
-    letter-spacing:1px;
+    color:#5c6168;
 }
 
-footer span{
-    color:#737a72;
+.product h4{
+    margin-top:12px;
+    font-family:'Playfair Display',serif;
+    font-size:24px;
+    font-weight:400;
 }
 
-/* ---------------- MOBILE : SCALE, NOT REFLOW ---------------- */
+.product p{
+    margin-top:10px;
+    font-size:11px;
+    line-height:1.8;
+    color:#777b82;
+}
 
-@media(max-width:700px){
+/* =========================
+   CHARACTERS
+========================= */
+
+.character-note{
+    border:1px dashed #32363c;
+    padding:40px;
+    text-align:center;
+
+    color:#686d74;
+    font-family:'DM Mono',monospace;
+    font-size:10px;
+    line-height:2;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+    padding:60px 0;
+
+    background:#060709;
+    color:#4f545b;
+}
+
+.footer-inner{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+}
+
+.footer-logo{
+    font-family:'DM Mono',monospace;
+    letter-spacing:3px;
+    font-size:11px;
+}
+
+.footer-info{
+    font-family:'DM Mono',monospace;
+    font-size:8px;
+    line-height:2;
+    text-align:right;
+}
+
+/* =========================
+   MOBILE = FIXED WINDOW
+========================= */
+
+@media(max-width:1100px){
 
     body{
         min-width:1000px;
     }
 
-    header{
-        height:65px;
-        padding:0 35px;
-    }
-
-    main{
-        width:1000px;
-        padding:55px 35px 80px;
-    }
-
-    .hero{
-        min-height:390px;
-    }
-
-    .overview{
-        grid-template-columns:1.5fr 1fr 1fr;
-    }
-
-    .regions{
-        grid-template-columns:1fr 1fr;
-    }
-
-    .checkpoint{
-        grid-template-columns:1fr 1.4fr;
-    }
-
-    .documents{
-        grid-template-columns:repeat(3,1fr);
-    }
-
-    footer{
-        min-width:1000px;
+    .container,
+    .header-inner{
+        margin-left:40px;
+        margin-right:40px;
     }
 }
 </style>
@@ -577,564 +660,987 @@ footer span{
 
 <body>
 
+<!-- =========================
+HEADER
+========================= -->
+
 <header>
+<div class="header-inner">
 
     <div class="logo">
-        <div class="logo-mark">IZ</div>
-        <div class="logo-text">INTER-ZONE NETWORK</div>
+        INTER-ZONE <span>// NETWORK</span>
     </div>
 
-    <div class="status">
-        NETWORK STATUS : <span>ONLINE</span>
-    </div>
+    <nav>
+        <a href="#world">WORLD</a>
+        <a href="#regions">REGIONS</a>
+        <a href="#history">HISTORY</a>
+        <a href="#checkpoint">CHECKPOINT</a>
+        <a href="#documents">DOCUMENTS</a>
+    </nav>
 
+</div>
 </header>
 
 
-<main>
+<!-- =========================
+HERO
+========================= -->
 
-    <!-- HERO -->
+<section class="hero">
 
-    <section class="hero">
+<div class="hero-grid"></div>
 
-        <div class="hero-small">
-            GLOBAL INFORMATION DATABASE
-        </div>
+<div class="container hero-content">
 
-        <h1>THE WORLD<br>OF 2100—</h1>
-
-        <p>
-            21세기의 지구.
-            인류 감축 정책과 그 이후의 전쟁을 거쳐 분리된 네 개의 국가와
-            어느 국가에도 속하지 않는 중립 구역이 존재한다.
-            본 데이터베이스는 각 지역의 역사와 제도, 사회 및 주요 정보를 기록한다.
-        </p>
-
-        <div class="hero-line"></div>
-
-    </section>
-
-
-    <!-- WORLD -->
-
-    <section class="section">
-
-        <div class="section-head">
-            <div class="section-title">01 / WORLD OVERVIEW</div>
-            <div class="section-number">GLOBAL DATA</div>
-        </div>
-
-        <div class="overview">
-
-            <div class="overview-box">
-                <div class="overview-label">PLANET</div>
-                <div class="overview-value">Earth</div>
-                <div class="overview-desc">
-                    인류가 살아가는 현재의 지구.
-                    네 개의 국가와 하나의 중립 구역으로 나뉘어 있다.
-                </div>
-            </div>
-
-            <div class="overview-box">
-                <div class="overview-label">ERA</div>
-                <div class="overview-value">2100s</div>
-                <div class="overview-desc">
-                    인류 감축 정책 이후의 시대.
-                </div>
-            </div>
-
-            <div class="overview-box">
-                <div class="overview-label">REGIONS</div>
-                <div class="overview-value">04 + 01</div>
-                <div class="overview-desc">
-                    네 국가와 라넌큘러스 중립 구역.
-                </div>
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- REGIONS -->
-
-    <section class="section">
-
-        <div class="section-head">
-            <div class="section-title">02 / REGIONS</div>
-            <div class="section-number">FOUR NATIONS</div>
-        </div>
-
-        <div class="regions">
-
-            <!-- POINSETTIA -->
-
-            <article class="region">
-
-                <div class="region-top">
-                    <div class="region-code">REG-01</div>
-                    <div class="region-status">CONSTITUTIONAL MONARCHY</div>
-                </div>
-
-                <div class="region-content">
-
-                    <h3>Poinsettia</h3>
-                    <div class="region-kor">포인세티아</div>
-
-                    <div class="region-desc">
-                        예술을 중심으로 발전한 국가.
-                        예술 혁명 이후 예술 산업이 국가의 중심적인 산업으로 자리잡았다.
-                        도시 곳곳에서 예술가와 디자이너들이 활동한다.
-                    </div>
-
-                </div>
-
-                <div class="region-info">
-
-                    <div class="info-item">
-                        <div class="info-label">CAPITAL</div>
-                        <div class="info-value">Lobelia</div>
-                    </div>
-
-                    <div class="info-item">
-                        <div class="info-label">CURRENCY</div>
-                        <div class="info-value">Lumen</div>
-                    </div>
-
-                    <div class="info-item">
-                        <div class="info-label">INDUSTRY</div>
-                        <div class="info-value">ART</div>
-                    </div>
-
-                </div>
-
-            </article>
-
-
-            <!-- ARMERIA -->
-
-            <article class="region">
-
-                <div class="region-top">
-                    <div class="region-code">REG-02</div>
-                    <div class="region-status">REPUBLIC</div>
-                </div>
-
-                <div class="region-content">
-
-                    <h3>Armeria</h3>
-                    <div class="region-kor">아르메리아</div>
-
-                    <div class="region-desc">
-                        과학을 중심으로 발전한 국가.
-                        높은 교육 수준과 시험, 지능, 출신 배경 등을 중요하게 여기며
-                        사회 전반에 엘리트 중심의 문화가 강하게 자리잡고 있다.
-                    </div>
-
-                </div>
-
-                <div class="region-info">
-
-                    <div class="info-item">
-                        <div class="info-label">CAPITAL</div>
-                        <div class="info-value">Cattleya</div>
-                    </div>
-
-                    <div class="info-item">
-                        <div class="info-label">CURRENCY</div>
-                        <div class="info-value">CB</div>
-                    </div>
-
-                    <div class="info-item">
-                        <div class="info-label">INDUSTRY</div>
-                        <div class="info-value">SCIENCE</div>
-                    </div>
-
-                </div>
-
-            </article>
-
-
-            <!-- ASPHODEL -->
-
-            <article class="region">
-
-                <div class="region-top">
-                    <div class="region-code">REG-03</div>
-                    <div class="region-status">ONE-PARTY STATE</div>
-                </div>
-
-                <div class="region-content">
-
-                    <h3>Asphodel</h3>
-                    <div class="region-kor">아스포델</div>
-
-                    <div class="region-desc">
-                        추운 기후와 눈이 잦은 지역.
-                        캔과 플라스틱 산업이 발달했으며,
-                        독특한 식품인 이끼딸기와 눈설탕이 존재한다.
-                    </div>
-
-                </div>
-
-                <div class="region-info">
-
-                    <div class="info-item">
-                        <div class="info-label">CAPITAL</div>
-                        <div class="info-value">Cyclamen</div>
-                    </div>
-
-                    <div class="info-item">
-                        <div class="info-label">CURRENCY</div>
-                        <div class="info-value">Lumen</div>
-                    </div>
-
-                    <div class="info-item">
-                        <div class="info-label">INDUSTRY</div>
-                        <div class="info-value">MANUFACTURING</div>
-                    </div>
-
-                </div>
-
-            </article>
-
-
-            <!-- ZEPHYRANTHES -->
-
-            <article class="region">
-
-                <div class="region-top">
-                    <div class="region-code">REG-04</div>
-                    <div class="region-status">NO GOVERNMENT</div>
-                </div>
-
-                <div class="region-content">
-
-                    <h3>Zephyranthes</h3>
-                    <div class="region-kor">제피란테스</div>
-
-                    <div class="region-desc">
-                        정부가 존재하지 않는 지역.
-                        비가 자주 내리고 기온이 낮으며,
-                        화학 연구와 각종 화학 관련 산업이 발달해 있다.
-                    </div>
-
-                </div>
-
-                <div class="region-info">
-
-                    <div class="info-item">
-                        <div class="info-label">CAPITAL</div>
-                        <div class="info-value">Carinata</div>
-                    </div>
-
-                    <div class="info-item">
-                        <div class="info-label">CURRENCY</div>
-                        <div class="info-value">CB</div>
-                    </div>
-
-                    <div class="info-item">
-                        <div class="info-label">INDUSTRY</div>
-                        <div class="info-value">CHEMISTRY</div>
-                    </div>
-
-                </div>
-
-            </article>
-
-        </div>
-
-    </section>
-
-
-    <!-- HISTORY -->
-
-    <section class="section">
-
-        <div class="section-head">
-            <div class="section-title">03 / HISTORY</div>
-            <div class="section-number">RECORDED EVENTS</div>
-        </div>
-
-        <div class="timeline">
-
-            <div class="event">
-
-                <div class="event-year">1800s</div>
-
-                <h3>인류 감축 정책</h3>
-
-                <p>
-                    인간의 과도한 밀집으로 인해 경제적·사회적 문제가 발생하기 시작했고,
-                    연합은 인류 감축 정책을 시행한다.
-                    초기에는 유전적 선별과 제거가 이루어졌으며,
-                    이후 정책은 더욱 강압적인 형태로 확대되었다.
-                </p>
-
-            </div>
-
-
-            <div class="event">
-
-                <div class="event-year">2028</div>
-
-                <h3>라플레시아 전쟁</h3>
-
-                <p>
-                    아르메리아와 아스포델 사이에서 발생한 전쟁.
-                    서로의 관점과 이해관계를 이해하지 못한 것이
-                    갈등의 핵심적인 원인이 되었다.
-                    전쟁은 아르메리아의 승리로 끝났다.
-                </p>
-
-            </div>
-
-
-            <div class="event">
-
-                <div class="event-year">2030</div>
-
-                <h3>대숙청 사건</h3>
-
-                <p>
-                    제피란테스에서 지속적인 세금 압박과
-                    지역 붕괴의 위험이 커지자 반란이 발생했다.
-                    반란 세력은 당시의 지도자를 숙청했으며,
-                    이후 제피란테스에는 정부가 존재하지 않게 되었다.
-                </p>
-
-            </div>
-
-
-            <div class="event">
-
-                <div class="event-year">—</div>
-
-                <h3>국가의 분리</h3>
-
-                <p>
-                    인류 감축 정책에 대한 반발은 폭동과 전쟁으로 이어졌고,
-                    오랜 혼란 이후 현재의 네 국가가 형성되었다.
-                    연합은 해체되었으며 정책에 관여한 고위 인사들은 처형되었다.
-                </p>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- BLUEBELL -->
-
-    <section class="section">
-
-        <div class="section-head">
-            <div class="section-title">04 / NEUTRAL ZONE</div>
-            <div class="section-number">RANUNCULUS</div>
-        </div>
-
-        <div class="checkpoint">
-
-            <div class="checkpoint-left">
-
-                <div class="checkpoint-code">
-                    NEUTRAL TERRITORY / R-00
-                </div>
-
-                <h2>Bluebell</h2>
-
-                <div class="checkpoint-sub">
-                    Ranunculus / 라넌큘러스
-                </div>
-
-            </div>
-
-
-            <div class="checkpoint-right">
-
-                <p>
-                    라넌큘러스는 어떠한 국가에도 속하지 않는 중립 구역이다.
-                    그 중심에는 블루벨 도시와 국가 간 이동을 연결하는 검문소가 존재한다.
-                </p>
-
-                <p style="margin-top:15px;">
-                    국가 간 이동을 위해서는 반드시 이곳을 거쳐야 한다.
-                    어느 국가도 블루벨의 중립성을 침해하지 않으며,
-                    이곳에 대한 직접적인 간섭은 전쟁으로 이어질 가능성이 있다.
-                </p>
-
-
-                <div class="rules">
-
-                    <div class="rule">
-                        <div class="rule-number">01</div>
-                        <div class="rule-text">
-                            신분증 확인
-                        </div>
-                    </div>
-
-                    <div class="rule">
-                        <div class="rule-number">02</div>
-                        <div class="rule-text">
-                            이동 목적 확인
-                        </div>
-                    </div>
-
-                    <div class="rule">
-                        <div class="rule-number">03</div>
-                        <div class="rule-text">
-                            소지품 검사
-                        </div>
-                    </div>
-
-                    <div class="rule">
-                        <div class="rule-number">04</div>
-                        <div class="rule-text">
-                            관련 서류 확인
-                        </div>
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- DOCUMENTS -->
-
-    <section class="section">
-
-        <div class="section-head">
-            <div class="section-title">05 / DOCUMENTS</div>
-            <div class="section-number">TRAVEL AUTHORIZATION</div>
-        </div>
-
-        <div class="documents">
-
-            <div class="document">
-
-                <div class="document-code">DOC-01</div>
-
-                <h3>Residence Permit</h3>
-
-                <p>
-                    타 지역에서의 거주를 위해 요구되는
-                    거주 허가 문서.
-                </p>
-
-            </div>
-
-
-            <div class="document">
-
-                <div class="document-code">DOC-02</div>
-
-                <h3>Diplomatic Permit</h3>
-
-                <p>
-                    외교적 목적의 이동을 증명하기 위한
-                    공식 허가 문서.
-                </p>
-
-            </div>
-
-
-            <div class="document">
-
-                <div class="document-code">DOC-03</div>
-
-                <h3>International Special Permit</h3>
-
-                <p>
-                    일반적인 이동 절차와 다른 특별한 사유로
-                    국경을 통과하기 위한 허가 문서.
-                </p>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- RESTRICTIONS -->
-
-    <section class="section">
-
-        <div class="section-head">
-            <div class="section-title">06 / RESTRICTIONS</div>
-            <div class="section-number">CHECKPOINT REGULATION</div>
-        </div>
-
-        <div class="overview">
-
-            <div class="overview-box">
-
-                <div class="overview-label">PROHIBITED</div>
-
-                <div class="overview-value">
-                    Weapons
-                </div>
-
-                <div class="overview-desc">
-                    검문소를 통과할 때 무기의 소지는 금지된다.
-                </div>
-
-            </div>
-
-
-            <div class="overview-box">
-
-                <div class="overview-label">PROHIBITED</div>
-
-                <div class="overview-value">
-                    State Secrets
-                </div>
-
-                <div class="overview-desc">
-                    국가 기밀에 해당하는 물품 및 정보의 반출입은 금지된다.
-                </div>
-
-            </div>
-
-
-            <div class="overview-box">
-
-                <div class="overview-label">ACCESS</div>
-
-                <div class="overview-value">
-                    OPEN
-                </div>
-
-                <div class="overview-desc">
-                    국제 범죄자가 아니며 신분증이 위조되지 않았다면
-                    일반적인 국경 통과가 가능하다.
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-</main>
-
-
-<footer>
-
-    <div>
-        INTER-ZONE NETWORK
+    <div class="hero-small">
+        GLOBAL INFORMATION NETWORK / 2100+
     </div>
 
-    <div>
-        DATABASE STATUS : <span>ONLINE</span>
+    <h1>
+        THE WORLD
+        <span>AFTER THE DIVISION.</span>
+    </h1>
+
+    <p class="hero-description">
+        Four regions. One neutral zone.
+        <br>
+        A world rebuilt after decades of conflict,
+        population control and political collapse.
+    </p>
+
+    <div class="hero-status">
+        <span class="status-dot"></span>
+        NETWORK STATUS : ONLINE
+        <span>///</span>
+        EARTH / 21XX
     </div>
 
-</footer>
+</div>
 
-</body>
-</html>
+</section>
+
+
+<!-- =========================
+WORLD
+========================= -->
+
+<section id="world">
+
+<div class="container">
+
+<div class="section-head">
+
+    <div>
+        <div class="section-number">01 / WORLD</div>
+        <div class="section-title">World Overview</div>
+    </div>
+
+    <div class="section-sub">
+        EARTH / CURRENT ERA
+    </div>
+
+</div>
+
+
+<div class="overview">
+
+<div class="overview-main">
+
+    <p>
+        현재의 지구는 네 개의 주요 국가,
+        <strong>포인세티아</strong>,
+        <strong>아르메리아</strong>,
+        <strong>아스포델</strong>,
+        <strong>제피란테스</strong>로 나뉘어 있다.
+    </p>
+
+    <br>
+
+    <p>
+        이들은 과거부터 독립된 국가였던 것은 아니다.
+        인류 감축 정책 이후 발생한 대규모 반발과 전쟁,
+        그리고 장기간의 사회적 혼란을 거치며
+        현재의 국경과 체제가 형성되었다.
+    </p>
+
+    <br>
+
+    <p>
+        네 국가의 중앙에는 어느 국가에도 속하지 않는
+        중립 지역 <strong>라넌큘러스</strong>가 존재한다.
+        그 중심 도시인 <strong>블루벨</strong>은
+        국가 간 이동이 이루어지는 가장 중요한 통로다.
+    </p>
+
+</div>
+
+
+<div class="data-list">
+
+    <div class="data-row">
+        <span>PLANET</span>
+        <span>EARTH</span>
+    </div>
+
+    <div class="data-row">
+        <span>ERA</span>
+        <span>21XX</span>
+    </div>
+
+    <div class="data-row">
+        <span>REGIONS</span>
+        <span>4 COUNTRIES</span>
+    </div>
+
+    <div class="data-row">
+        <span>NEUTRAL ZONE</span>
+        <span>RANUNCULUS</span>
+    </div>
+
+    <div class="data-row">
+        <span>CENTRAL CITY</span>
+        <span>BLUEBELL</span>
+    </div>
+
+    <div class="data-row">
+        <span>LANGUAGE</span>
+        <span>COMMON</span>
+    </div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+REGIONS
+========================= -->
+
+<section id="regions">
+
+<div class="container">
+
+<div class="section-head">
+
+    <div>
+        <div class="section-number">02 / REGIONS</div>
+        <div class="section-title">Four Regions</div>
+    </div>
+
+    <div class="section-sub">
+        POLITICAL TERRITORIES
+    </div>
+
+</div>
+
+
+<div class="regions">
+
+
+<div class="region">
+
+    <div class="region-code">REG-01 / POINSETTIA</div>
+
+    <div class="region-name">Poinsettia</div>
+
+    <div class="region-city">
+        CAPITAL — LOBELIA
+    </div>
+
+    <div class="region-desc">
+        예술과 문화가 국가의 중심이 된 입헌군주국.
+        온화한 기후와 예술 산업으로 알려져 있다.
+    </div>
+
+</div>
+
+
+<div class="region">
+
+    <div class="region-code">REG-02 / ARMERIA</div>
+
+    <div class="region-name">Armeria</div>
+
+    <div class="region-city">
+        CAPITAL — CATTLEYA
+    </div>
+
+    <div class="region-desc">
+        과학과 교육을 중심으로 발전한 공화국.
+        사회적으로 높은 학력과 지적 능력이 중요하게 여겨진다.
+    </div>
+
+</div>
+
+
+<div class="region">
+
+    <div class="region-code">REG-03 / ASPHODEL</div>
+
+    <div class="region-name">Asphodel</div>
+
+    <div class="region-city">
+        CAPITAL — CYCLAMEN
+    </div>
+
+    <div class="region-desc">
+        일당독재 체제가 유지되는 국가.
+        추운 기후와 낮은 생활계층의 비중으로 알려져 있다.
+    </div>
+
+</div>
+
+
+<div class="region">
+
+    <div class="region-code">REG-04 / ZEPHYRANTHES</div>
+
+    <div class="region-name">Zephyranthes</div>
+
+    <div class="region-city">
+        CAPITAL — CARINATA
+    </div>
+
+    <div class="region-desc">
+        정부가 존재하지 않는 무정부 지역.
+        화학 연구와 다양한 집단들이 공존하고 있다.
+    </div>
+
+</div>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+POINSETTIA
+========================= -->
+
+<section class="country">
+
+<div class="container">
+
+<div class="country-header">
+
+<div>
+
+    <div class="country-code">
+        REG-01 / POINSETTIA
+    </div>
+
+    <h3>Poinsettia</h3>
+
+</div>
+
+<div class="country-intro">
+
+    예술을 국가의 핵심 산업으로 삼고 있는
+    입헌군주제 국가.
+
+    <br><br>
+
+    수도는 <strong>Lobelia</strong>.
+    전반적으로 맑고 온화한 기후를 가지고 있으며
+    예술가와 문화 산업 종사자가 많다.
+
+</div>
+
+</div>
+
+
+<div class="country-grid">
+
+<div class="info-box">
+
+    <div class="info-label">CAPITAL</div>
+
+    <div class="info-value">Lobelia</div>
+
+    <div class="info-text">
+        포인세티아의 수도.
+        국가의 정치와 예술 산업이 집중되어 있다.
+    </div>
+
+</div>
+
+
+<div class="info-box">
+
+    <div class="info-label">GOVERNMENT</div>
+
+    <div class="info-value">Constitutional Monarchy</div>
+
+    <div class="info-text">
+        왕실은 존재하지만 실질적인 정치 권력은 거의 없다.
+        현재 왕실의 역할은 대부분 상징적이다.
+    </div>
+
+</div>
+
+
+<div class="info-box">
+
+    <div class="info-label">CURRENCY</div>
+
+    <div class="info-value">Lumen</div>
+
+    <div class="info-text">
+        포인세티아와 아스포델에서 사용되는 화폐.
+    </div>
+
+</div>
+
+
+<div class="info-box">
+
+    <div class="info-label">CLIMATE</div>
+
+    <div class="info-value">Mild / Clear</div>
+
+    <div class="info-text">
+        맑은 날이 많으며 전체적으로 온화한 기후.
+    </div>
+
+</div>
+
+
+<div class="info-box">
+
+    <div class="info-label">MAIN INDUSTRY</div>
+
+    <div class="info-value">Arts</div>
+
+    <div class="info-text">
+        디자인, 패션, 음악, 미디어 등
+        다양한 예술 산업이 국가 경제의 중심을 이룬다.
+    </div>
+
+</div>
+
+
+<div class="info-box">
+
+    <div class="info-label">NOBILITY</div>
+
+    <div class="info-value">Influential</div>
+
+    <div class="info-text">
+        귀족의 영향력은 상당하며,
+        그 정도는 가문에 따라 크게 다르다.
+    </div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+ARMERIA
+========================= -->
+
+<section class="country">
+
+<div class="container">
+
+<div class="country-header">
+
+<div>
+
+    <div class="country-code">
+        REG-02 / ARMERIA
+    </div>
+
+    <h3>Armeria</h3>
+
+</div>
+
+<div class="country-intro">
+
+    과학과 교육을 국가 발전의 핵심으로 삼는 공화국.
+
+    <br><br>
+
+    수도는 <strong>Cattleya</strong>.
+    사회적으로 학력과 지적 능력이 중요하게 여겨지며
+    엘리트 중심의 문화가 강하다.
+
+</div>
+
+</div>
+
+
+<div class="country-grid">
+
+<div class="info-box">
+
+    <div class="info-label">CAPITAL</div>
+
+    <div class="info-value">Cattleya</div>
+
+    <div class="info-text">
+        아르메리아의 수도이자
+        과학 연구와 교육의 중심지.
+    </div>
+
+</div>
+
+
+<div class="info-box">
+
+    <div class="info-label">GOVERNMENT</div>
+
+    <div class="info-value">Republic</div>
+
+    <div class="info-text">
+        공화제 국가.
+        사회적으로 엘리트 계층의 영향력이 강하다.
+    </div>
+
+</div>
+
+
+<div class="info-box">
+
+    <div class="info-label">CURRENCY</div>
+
+    <div class="info-value">CB</div>
+
+    <div class="info-text">
+        아르메리아와 제피란테스에서 사용되는 화폐.
+    </div>
+
+</div>
+
+
+<div class="info-box">
+
+    <div class="info-label">CLIMATE</div>
+
+    <div class="info-value">Strong Sunlight</div>
+
+    <div class="info-text">
+        강한 햇빛이 특징적인 지역.
+    </div>
+
+</div>
+
+
+<div class="info-box">
+
+    <div class="info-label">MAIN INDUSTRY</div>
+
+    <div class="info-value">Science</div>
+
+    <div class="info-text">
+        과학 연구와 교육이 국가의 주요 산업이다.
+    </div>
+
+</div>
+
+
+<div class="info-box">
+
+    <div class="info-label">SOCIAL STRUCTURE</div>
+
+    <div class="info-value">Elite Society</div>
+
+    <div class="info-text">
+        지능, 교육 수준, 시험 성적,
+        학력 및 출신 배경 등이 사회적 평가에 영향을 준다.
+    </div>
+
+</div>
+
+
+<div class="info-box">
+
+    <div class="info-label">DAHLIA</div>
+
+    <div class="info-value">IQ Drug</div>
+
+    <div class="info-text">
+        24시간 동안 IQ를 유지할 수 있다고 알려진 약품.
+        부작용으로 말더듬과 오한이 보고된다.
+        비밀리에 더 강한 버전이 존재한다.
+    </div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+ASPHODEL
+========================= -->
+
+<section class="country">
+
+<div class="container">
+
+<div class="country-header">
+
+<div>
+
+    <div class="country-code">
+        REG-03 / ASPHODEL
+    </div>
+
+    <h3>Asphodel</h3>
+
+</div>
+
+<div class="country-intro">
+
+    일당독재 체제가 유지되고 있는 국가.
+
+    <br><br>
+
+    수도는 <strong>Cyclamen</strong>,
+    대표 도시는 <strong>Dendrobium</strong>.
+    추운 기후와 잦은 눈이 특징이다.
+
+</div>
+
+</div>
+
+
+<div class="country-grid">
+
+<div class="info-box">
+
+    <div class="info-label">CAPITAL</div>
+
+    <div class="info-value">Cyclamen</div>
+
+    <div class="info-text">
+        아스포델의 수도.
+    </div>
+
+</div>
+
+
+<div class="info-box">
+
+    <div class="info-label">REPRESENTATIVE CITY</div>
+
+    <div class="info-value">Dendrobium</div>
+
+    <div class="info-text">
+        아스포델을 대표하는 주요 도시.
+    </div>
+
+</div>
+
+
+<div class="info-box">
+
+    <div class="info-label">GOVERNMENT</div>
+
+    <div class="info-value">One-Party Dictatorship</div>
+
+    <div class="info-text">
+        하나의 정당을 중심으로 국가가 운영된다.
+    </div>
+
+</div>
+
+
+<div class="info-box">
+
+    <div class="info-label">CURRENCY</div>
+
+    <div class="info-value">Lumen</div>
+
+    <div class="info-text">
+        포인세티아와 동일한 화폐를 사용한다.
+    </div>
+
+</div>
+
+
+<div class="info-box">
+
+    <div class="info-label">CLIMATE</div>
+
+    <div class="info-value">Cold / Snow</div>
+
+    <div class="info-text">
+        추운 기후와 잦은 눈이 특징이다.
+    </div>
+
+</div>
+
+
+<div class="info-box">
+
+    <div class="info-label">MAIN INDUSTRY</div>
+
+    <div class="info-value">Cans / Plastics</div>
+
+    <div class="info-text">
+        캔과 플라스틱을 중심으로 한 제조업이 발달했다.
+    </div>
+
+</div>
+
+
+<div class="info-box">
+
+    <div class="info-label">SOCIAL ATMOSPHERE</div>
+
+    <div class="info-value">Lower Class</div>
+
+    <div class="info-text">
+        사회적으로 낮은 계층에 속하는 사람들이 많다.
+        한편으로는 친절한 사람들도 많지만
+        군중이나 폭력적인 조직 역시 존재한다.
+    </div>
+
+</div>
+
+
+<div class="info-box">
+
+    <div class="info-label">SPECIAL FOOD</div>
+
+    <div class="info-value">Moss Strawberry</div>
+
+    <div class="info-text">
+        이끼딸기와 눈설탕.
+        아스포델에서만 찾아볼 수 있는 특색 있는 음식이다.
+    </div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+ZEPHYRANTHES
+========================= -->
+
+<section class="country">
+
+<div class="container">
+
+<div class="country-header">
+
+<div>
+
+    <div class="country-code">
+        REG-04 / ZEPHYRANTHES
+    </div>
+
+    <h3>Zephyranthes</h3>
+
+</div>
+
+<div class="country-intro">
+
+    중앙 정부가 존재하지 않는 무정부 지역.
+
+    <br><br>
+
+    수도는 <strong>Carinata</strong>,
+    대표 도시는 <strong>Candida</strong>.
+    화학 연구가 주요 산업이며
+    다양한 집단이 비교적 자유롭게 존재한다.
+
+</div>
+
+</div>
+
+
+<div class="country-grid">
+
+<div class="info-box">
+
+    <div class="info-label">CAPITAL</div>
+
+    <div class="info-value">Carinata</div>
+
+    <div class="info-text">
+        제피란테스의 수도로 불리는 도시.
+    </div>
+
+</div>
+
+
+<div class="info-box">
+
+    <div class="info-label">REPRESENTATIVE CITY</div>
+
+    <div class="info-value">Candida</div>
+
+    <div class="info-text">
+        제피란테스를 대표하는 주요 도시.
+    </div>
+
+</div>
+
+
+<div class="info-box">
+
+    <div class="info-label">GOVERNMENT</div>
+
+    <div class="info-value">Anarchy</div>
+
+    <div class="info-text">
+        중앙 정부가 존재하지 않는다.
+    </div>
+
+</div>
+
+
+<div class="info-box">
+
+    <div class="info-label">CURRENCY</div>
+
+    <div class="info-value">CB</div>
+
+    <div class="info-text">
+        아르메리아와 동일한 화폐를 사용한다.
+    </div>
+
+</div>
+
+
+<div class="info-box">
+
+    <div class="info-label">CLIMATE</div>
+
+    <div class="info-value">Rain / Cold</div>
+
+    <div class="info-text">
+        비가 자주 내리고 비교적 기온이 낮다.
+    </div>
+
+</div>
+
+
+<div class="info-box">
+
+    <div class="info-label">MAIN INDUSTRY</div>
+
+    <div class="info-value">Chemical Research</div>
+
+    <div class="info-text">
+        화학 연구가 지역 경제의 중요한 부분을 차지한다.
+    </div>
+
+</div>
+
+
+<div class="info-box">
+
+    <div class="info-label">SPECIAL PRODUCTS</div>
+
+    <div class="info-value">Chemical Kits</div>
+
+    <div class="info-text">
+        화학 키트와 온도 조절 장치 등이 유명하다.
+    </div>
+
+</div>
+
+
+<div class="info-box">
+
+    <div class="info-label">SOCIAL ATMOSPHERE</div>
+
+    <div class="info-value">Unrestricted</div>
+
+    <div class="info-text">
+        전반적으로 자유롭고 느긋한 분위기.
+        여러 종교적 집단이나 사이비 집단도 존재한다.
+    </div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+HISTORY
+========================= -->
+
+<section id="history">
+
+<div class="container">
+
+<div class="section-head">
+
+<div>
+
+    <div class="section-number">03 / HISTORY</div>
+    <div class="section-title">Historical Archive</div>
+
+</div>
+
+<div class="section-sub">
+    MAJOR EVENTS
+</div>
+
+</div>
+
+
+<div class="event">
+
+    <div class="event-year">1800s</div>
+
+    <div class="event-title">
+        Human Reduction Policy
+    </div>
+
+    <div class="event-text">
+        인류의 과도한 밀집으로 인한 경제적·사회적 문제를
+        해결한다는 명목으로 연합이 인류 감축 정책을 시행하기 시작했다.
+        초기에는 유전적 선별과 처형을 포함했으며,
+        이후 점차 더욱 강압적인 인구 통제 정책으로 확대되었다.
+    </div>
+
+</div>
+
+
+<div class="event">
+
+    <div class="event-year">UNKNOWN / LATER PERIOD</div>
+
+    <div class="event-title">
+        The Revolt
+    </div>
+
+    <div class="event-text">
+        정책에 대한 반발이 폭동과 봉기로 이어졌다.
+        장기간 누적된 사회적 불만은 결국 대규모 전쟁으로 확대되었다.
+    </div>
+
+</div>
+
+
+<div class="event">
+
+    <div class="event-year">2028</div>
+
+    <div class="event-title">
+        Rafflesia War
+    </div>
+
+    <div class="event-text">
+        아르메리아와 아스포델 사이에서 발생한 전쟁.
+        양측의 사회적 가치관과 이해관계가 극단적으로 충돌했으며
+        최종적으로 아르메리아가 승리했다.
+    </div>
+
+</div>
+
+
+<div class="event">
+
+    <div class="event-year">2030</div>
+
+    <div class="event-title">
+        Great Purge Incident
+    </div>
+
+    <div class="event-text">
+        제피란테스에서 지속되는 세금 부담과
+        지역 붕괴에 대한 위기감으로 반란이 발생했다.
+        반란 세력은 당시 지도자를 처형했으며,
+        이후 제피란테스에는 중앙 정부가 존재하지 않게 되었다.
+    </div>
+
+</div>
+
+
+<div class="event">
+
+    <div class="event-year">AFTER THE WAR</div>
+
+    <div class="event-title">
+        Division of the World
+    </div>
+
+    <div class="event-text">
+        전쟁과 사회적 혼란 이후 기존의 통합된 체제는 붕괴했다.
+        각 지역은 서로 다른 정치 체제와 사회 구조를 형성했고,
+        현재의 네 국가가 성립하게 되었다.
+    </div>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<!-- =========================
+BLUEBELL
+========================= -->
+
+<section id="checkpoint" class="checkpoint">
+
+<div class="container">
+
+<div class="section-head">
+
+<div>
+
+    <div class="section-number">04 / NEUTRAL ZONE</div>
+    <div class="section-title">Ranunculus</div>
+
+</div>
+
+<div class="section-sub">
+    BLUEBELL CITY
+</div>
+
+</div>
+
+
+<div class="checkpoint-box">
+
+<div>
+
+    <div class="checkpoint-title">
+        Bluebell
+    </div>
+
+    <div class="checkpoint-text">
+
+        라넌큘러스의 중심 도시.
+
+        <br><br>
+
+        어느 국가에도 속하지 않는 중립 지역이며,
+        네 국가를 연결하는 가장 중요한 이동 거점이다.
+
+        <br><br>
+
+        블루벨을 공격하거나 간섭하는 행
