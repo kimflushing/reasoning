@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>POINSETTIA — INTER-ZONE NETWORK</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Playfair+Display:wght@400;500;600&family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+html,body{
+    width:100%;
+    min-height:100%;
+}
+
+body{
+    background:#080909;
+    color:#d9d9d4;
+    font-family:'Noto Sans KR',sans-serif;
+    overflow-x:hidden;
+}
+
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    opacity:.14;
+    background-image:
+        linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+    background-size:40px 40px;
+}
+
+body::after{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    background:
+        radial-gradient(circle at 50% 0%,rgba(190,175,160,.09),transparent 35%),
+        radial-gradient(circle at 90% 80%,rgba(160,120,110,.045),transparent 30%);
+}
+
+/* HEADER */
+
+header{
+    position:relative;
+    z-index:5;
+    height:78px;
+    border-bottom:1px solid #292927;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 55px;
+    background:rgba(8,9,9,.95);
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.logo-mark{
+    width:29px;
+    height:29px;
+    border:1px solid #77746e;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:'DM Mono',monospace;
+    font-size:10px;
+    color:#c5beb5;
+}
+
+.logo-text{
+    font-family:'DM Mono',monospace;
+    font-size:13px;
+    letter-spacing:3px;
+    color:#e4e1dc;
+}
+
+.status{
+    font-family:'DM Mono',monospace;
+    font-size:10px;
+    color:#73716d;
+    letter-spacing:1px;
+}
+
+.status span{
+    color:#b4aaa0;
+}
+
+/* MAIN */
+
+main{
+    position:relative;
+    z-index:1;
+    max-width:1380px;
+    margin:auto;
+    padding:55px;
+}
+
+/* BACK */
+
+.back{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    color:#77746f;
+    text-decoration:none;
+    font-family:'DM Mono',monospace;
+    font-size:10px;
+    letter-spacing:1px;
+    margin-bottom:25px;
+    transition:.25s;
+}
+
+.back:hover{
+    color:#ddd8d0;
+}
+
+/* HERO */
+
+.country-hero{
+    min-height:410px;
+    border:1px solid #302f2c;
+    position:relative;
+    overflow:hidden;
+    padding:48px;
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-end;
+    background:
+        radial-gradient(circle at 75% 40%,rgba(116,82,72,.16),transparent 35%),
+        linear-gradient(110deg,#0b0c0c,#11100f 65%,#0b0b0b);
+}
+
+.country-hero::before{
+    content:"REGION / 01";
+    position:absolute;
+    left:30px;
+    top:27px;
+    font-family:'DM Mono',monospace;
+    font-size:10px;
+    letter-spacing:2px;
+    color:#65625d;
+}
+
+.country-hero::after{
+    content:"P";
+    position:absolute;
+    right:45px;
+    top:-40px;
+    font-family:'Playfair Display',serif;
+    font-size:380px;
+    line-height:1;
+    color:rgba(210,190,175,.025);
+    pointer-events:none;
+}
+
+.hero-code{
+    font-family:'DM Mono',monospace;
+    font-size:10px;
+    letter-spacing:4px;
+    color:#8c8178;
+    margin-bottom:16px;
+}
+
+.country-hero h1{
+    font-family:'Playfair Display',serif;
+    font-weight:400;
+    font-size:clamp(58px,8vw,105px);
+    line-height:.9;
+    letter-spacing:-4px;
+    color:#ece9e4;
+}
+
+.country-kor{
+    margin-top:12px;
+    font-size:12px;
+    color:#807b75;
+}
+
+.hero-description{
+    max-width:680px;
+    margin-top:27px;
+    color:#96918b;
+    font-size:12px;
+    line-height:2;
+}
+
+.hero-line{
+    width:75px;
+    height:1px;
+    background:#87796e;
+    margin-top:30px;
+}
+
+/* SECTION */
+
+.section{
+    margin-top:80px;
+}
+
+.section-head{
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+    border-bottom:1px solid #2b2c29;
+    padding-bottom:15px;
+    margin-bottom:25px;
+}
+
+.section-title{
+    font-family:'DM Mono',monospace;
+    font-size:11px;
+    letter-spacing:3px;
+    color:#c0bbb5;
+}
+
+.section-number{
+    font-family:'DM Mono',monospace;
+    font-size:9px;
+    color:#555953;
+}
+
+/* BASIC DATA */
+
+.data-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:1px;
+    background:#292b28;
+    border:1px solid #292b28;
+}
+
+.data-box{
+    background:#0c0e0d;
+    padding:28px;
+    min-height:145px;
+}
+
+.data-label{
+    font-family:'DM Mono',monospace;
+    font-size:9px;
+    letter-spacing:2px;
+    color:#5d625d;
+}
+
+.data-value{
+    font-family:'Playfair Display',serif;
+    font-size:26px;
+    color:#ddd9d3;
+    margin-top:17px;
+}
+
+.data-desc{
+    margin-top:9px;
+    color:#727771;
+    font-size:10px;
+    line-height:1.7;
+}
+
+/* GOVERNMENT */
+
+.government{
+    display:grid;
+    grid-template-columns:1fr 1.5fr;
+    border:1px solid #2c2e2b;
+    min-height:310px;
+}
+
+.gov-left{
+    padding:40px;
+    background:#0e100f;
+    border-right:1px solid #2b2d2a;
+}
+
+.gov-code{
+    font-family:'DM Mono',monospace;
+    font-size:9px;
+    letter-spacing:2px;
+    color:#646a64;
+}
+
+.gov-left h2{
+    font-family:'Playfair Display',serif;
+    font-size:42px;
+    font-weight:400;
+    margin-top:25px;
+    color:#e3dfda;
+}
+
+.gov-left p{
+    margin-top:8px;
+    font-size:11px;
+    color:#777c76;
+}
+
+.gov-right{
+    padding:40px;
+}
+
+.gov-right p{
+    color:#8d928c;
+    font-size:12px;
+    line-height:2;
+}
+
+.gov-note{
+    margin-top:28px;
+    border-top:1px solid #292b28;
+    padding-top:20px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+}
+
+.note-box{
+    border:1px solid #292b28;
+    padding:18px;
+    background:#0b0d0c;
+}
+
+.note-title{
+    font-family:'DM Mono',monospace;
+    font-size:8px;
+    color:#5f655f;
+    letter-spacing:1px;
+}
+
+.note-text{
+    margin-top:8px;
+    font-size:10px;
+    line-height:1.7;
+    color:#9a9f98;
+}
+
+/* CULTURE */
+
+.culture{
+    display:grid;
+    grid-template-columns:1.3fr 1fr 1fr;
+    gap:15px;
+}
+
+.culture-box{
+    min-height:240px;
+    border:1px solid #292c29;
+    padding:28px;
+    background:#0b0d0c;
+    position:relative;
+    overflow:hidden;
+}
+
+.culture-box:first-child{
+    background:
+        radial-gradient(circle at 80% 20%,rgba(150,105,90,.08),transparent 35%),
+        #0b0d0c;
+}
+
+.culture-number{
+    font-family:'DM Mono',monospace;
+    font-size:9px;
+    color:#5c625c;
+}
+
+.culture-box h3{
+    font-family:'Playfair Display',serif;
+    font-weight:400;
+    font-size:27px;
+    margin-top:35px;
+    color:#dedbd5;
+}
+
+.culture-box p{
+    font-size:10px;
+    color:#797f78;
+    line-height:1.9;
+    margin-top:12px;
+}
+
+/* PRODUCTS */
+
+.products{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+}
+
+.product{
+    border:1px solid #292c29;
+    background:#0b0d0c;
+    min-height:170px;
+    padding:25px;
+    transition:.25s;
+}
+
+.product:hover{
+    border-color:#655d56;
+    transform:translateY(-3px);
+}
+
+.product-code{
+    font-family:'DM Mono',monospace;
+    font-size:8px;
+    color:#555b55;
+}
+
+.product h3{
+    font-family:'Playfair Display',serif;
+    font-weight:400;
+    font-size:21px;
+    margin-top:27px;
+    color:#dad7d1;
+}
+
+.product p{
+    font-size:9px;
+    line-height:1.7;
+    color:#70766f;
+    margin-top:8px;
+}
+
+/* ART REVOLUTION */
+
+.history-box{
+    border:1px solid #30322f;
+    padding:42px;
+    background:
+        linear-gradient(120deg,rgba(150,110,95,.04),transparent 55%),
+        #0b0d0c;
+    position:relative;
+    overflow:hidden;
+}
+
+.history-box::after{
+    content:"ART";
+    position:absolute;
+    right:-15px;
+    bottom:-60px;
+    font-family:'Playfair Display',serif;
+    font-size:190px;
+    color:rgba(220,205,195,.025);
+}
+
+.history-year{
+    font-family:'DM Mono',monospace;
+    color:#857970;
+    font-size:10px;
+    letter-spacing:3px;
+}
+
+.history-box h2{
+    font-family:'Playfair Display',serif;
+    font-weight:400;
+    font-size:38px;
+    color:#e1ddd7;
+    margin-top:15px;
+}
+
+.history-box p{
+    max-width:750px;
+    margin-top:20px;
+    color:#858a83;
+    font-size:11px;
+    line-height:2;
+}
+
+/* PEOPLE */
+
+.people-empty{
+    border:1px dashed #292c29;
+    min-height:180px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    background:#0a0c0b;
+}
+
+.people-empty div{
+    font-family:'DM Mono',monospace;
+    color:#565c56;
+    font-size:10px;
+    line-height:2;
+    letter-spacing:1px;
+}
+
+/* FOOTER */
+
+footer{
+    border-top:1px solid #292b28;
+    padding:30px 55px;
+    display:flex;
+    justify-content:space-between;
+    font-family:'DM Mono',monospace;
+    font-size:9px;
+    letter-spacing:1px;
+    color:#555b55;
+}
+
+footer span{
+    color:#777d76;
+}
+
+/* MOBILE = FIXED DESKTOP SCALE */
+
+@media(max-width:700px){
+
+    body{
+        min-width:1000px;
+    }
+
+    header{
+        padding:0 35px;
+        height:65px;
+    }
+
+    main{
+        width:1000px;
+        padding:45px 35px 80px;
+    }
+
+    footer{
+        min-width:1000px;
+    }
+}
+</style>
+</head>
+
+
+<body>
+
+<header>
+
+    <div class="logo">
+        <div class="logo-mark">IZ</div>
+        <div class="logo-text">INTER-ZONE NETWORK</div>
+    </div>
+
+    <div class="status">
+        REGION STATUS : <span>POINSETTIA</span>
+    </div>
+
+</header>
+
+
+<main>
+
+    <a href="index.html" class="back">
+        ← BACK TO WORLD DATABASE
+    </a>
+
+
+    <!-- HERO -->
+
+    <section class="country-hero">
+
+        <div class="hero-code">
+            POINSETTIA / REG-01
+        </div>
+
+        <h1>POINSETTIA</h1>
+
+        <div class="country-kor">
+            포인세티아
+        </div>
+
+        <p class="hero-description">
+            예술을 국가의 주요 산업으로 삼고 있는 입헌 군주제 국가.
+            예술 혁명 이후 예술가와 창작 산업을 중심으로 발전했으며,
+            직물과 기록 매체, 미디어 등 다양한 예술 관련 산업이 발달해 있다.
+        </p>
+
+        <div class="hero-line"></div>
+
+    </section>
+
+
+    <!-- BASIC DATA -->
+
+    <section class="section">
+
+        <div class="section-head">
+            <div class="section-title">01 / BASIC INFORMATION</div>
+            <div class="section-number">REGIONAL DATA</div>
+        </div>
+
+        <div class="data-grid">
+
+            <div class="data-box">
+
+                <div class="data-label">CAPITAL</div>
+
+                <div class="data-value">
+                    Lobelia
+                </div>
+
+                <div class="data-desc">
+                    로벨리아
+                </div>
+
+            </div>
+
+
+            <div class="data-box">
+
+                <div class="data-label">GOVERNMENT</div>
+
+                <div class="data-value">
+                    Monarchy
+                </div>
+
+                <div class="data-desc">
+                    입헌 군주제
+                </div>
+
+            </div>
+
+
+            <div class="data-box">
+
+                <div class="data-label">CURRENCY</div>
+
+                <div class="data-value">
+                    Lumen
+                </div>
+
+                <div class="data-desc">
+                    루멘
+                </div>
+
+            </div>
+
+
+            <div class="data-box">
+
+                <div class="data-label">CLIMATE</div>
+
+                <div class="data-value">
+                    Mild
+                </div>
+
+                <div class="data-desc">
+                    맑은 날이 많고 비교적 온화한 기후
+                </div>
+
+            </div>
+
+
+            <div class="data-box">
+
+                <div class="data-label">MAIN INDUSTRY</div>
+
+                <div class="data-value">
+                    Art
+                </div>
+
+                <div class="data-desc">
+                    예술 산업
+                </div>
+
+            </div>
+
+
+            <div class="data-box">
+
+                <div class="data-label">PUBLIC IMAGE</div>
+
+                <div class="data-value">
+                    Artists
+                </div>
+
+                <div class="data-desc">
+                    예술가가 많이 모여 있는 국가
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- GOVERNMENT -->
+
+    <section class="section">
+
+        <div class="section-head">
+            <div class="section-title">02 / GOVERNMENT</div>
+            <div class="section-number">POLITICAL STRUCTURE</div>
+        </div>
+
+
+        <div class="government">
+
+            <div class="gov-left">
+
+                <div class="gov-code">
+                    CONSTITUTIONAL MONARCHY
+                </div>
+
+                <h2>Royal State</h2>
+
+                <p>
+                    입헌 군주제
+                </p>
+
+            </div>
+
+
+            <div class="gov-right">
+
+                <p>
+                    포인세티아에는 현재 왕실이 존재한다.
+                    그러나 왕실의 실질적인 정치적 영향력은 크지 않으며,
+                    국가 운영과 정치적 결정은 정부와 의회를 중심으로 이루어진다.
+                </p>
+
+                <p style="margin-top:15px;">
+                    왕실은 정치 권력보다는 국가의 전통과 상징에 가까운 위치에 있으며,
+                    문화와 예술 분야의 후원자로서 활동하는 경우가 많다.
+                </p>
+
+
+                <div class="gov-note">
+
+                    <div class="note-box">
+
+                        <div class="note-title">
+                            ROYAL AUTHORITY
+                        </div>
+
+                        <div class="note-text">
+                            실질적인 정치 권력은 제한적.
+                        </div>
+
+                    </div>
+
+
+                    <div class="note-box">
+
+                        <div class="note-title">
+                            CULTURAL ROLE
+                        </div>
+
+                        <div class="note-text">
+                            국가의 전통과 문화, 예술을 상징하는 존재.
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- NOBILITY -->
+
+    <section class="section">
+
+        <div class="section-head">
+            <div class="section-title">03 / NOBILITY</div>
+            <div class="section-number">SOCIAL STRUCTURE</div>
+        </div>
+
+
+        <div class="culture">
+
+            <div class="culture-box">
+
+                <div class="culture-number">
+                    SOCIAL CLASS / 01
+                </div>
+
+                <h3>귀족 사회</h3>
+
+                <p>
+                    포인세티아에는 현재까지도 귀족 계층이 존재한다.
+                    귀족이라는 신분 자체가 모든 가문에게 동일한 영향력을 보장하는 것은 아니며,
+                    가문의 재산과 역사, 사회적 위치 등에 따라 영향력에는 상당한 차이가 있다.
+                </p>
+
+            </div>
+
+
+            <div class="culture-box">
+
+                <div class="culture-number">
+                    SOCIAL CLASS / 02
+                </div>
+
+                <h3>Influence</h3>
+
+                <p>
+                    영향력 있는 귀족 가문은 사회와 문화계에서
+                    상당한 발언권을 갖기도 한다.
+                </p>
+
+            </div>
+
+
+            <div class="culture-box">
+
+                <div class="culture-number">
+                    SOCIAL CLASS / 03
+                </div>
+
+                <h3>Art & Nobility</h3>
+
+                <p>
+                    예술 산업이 발달한 만큼
+                    일부 귀족 가문은 예술계와 밀접한 관계를 맺고 있다.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- CULTURE -->
+
+    <section class="section">
+
+        <div class="section-head">
+            <div class="section-title">04 / CULTURE & INDUSTRY</div>
+            <div class="section-number">ART REVOLUTION LEGACY</div>
+        </div>
+
+
+        <div class="culture">
+
+            <div class="culture-box">
+
+                <div class="culture-number">
+                    CULTURE / 01
+                </div>
+
+                <h3>Artistic Society</h3>
+
+                <p>
+                    포인세티아는 예술가들이 많이 모여 있는 국가다.
+                    예술은 단순한 취미나 문화 활동을 넘어
+                    국가의 주요 산업으로 자리잡고 있다.
+                </p>
+
+            </div>
+
+
+            <div class="culture-box">
+
+                <div class="culture-number">
+                    CULTURE / 02
+                </div>
+
+                <h3>Gentleman</h3>
+
+                <p>
+                    포인세티아에는 신사적인 태도를 중요하게 생각하는
+                    사람들이 비교적 많이 존재한다.
+                </p>
+
+            </div>
+
+
+            <div class="culture-box">
+
+                <div class="culture-number">
+                    CULTURE / 03
+                </div>
+
+                <h3>Media</h3>
+
+                <p>
+                    직물과 LP 레코드, 포스터 및 미디어 산업이
+                    국가의 대표적인 산업 분야로 자리잡고 있다.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- PRODUCTS -->
+
+    <section class="section">
+
+        <div class="section-head">
+            <div class="section-title">05 / MAJOR PRODUCTS</div>
+            <div class="section-number">INDUSTRIAL OUTPUT</div>
+        </div>
+
+
+        <div class="products">
+
+            <div class="product">
+
+                <div class="product-code">
+                    ART-01
+                </div>
+
+                <h3>Textile</h3>
+
+                <p>
+                    포인세티아의 대표적인 생산품 중 하나인 직물.
+                </p>
+
+            </div>
+
+
+            <div class="product">
+
+                <div class="product-code">
+                    ART-02
+                </div>
+
+                <h3>LP Records</h3>
+
+                <p>
+                    음악과 기록 문화를 대표하는 주요 생산품.
+                </p>
+
+            </div>
+
+
+            <div class="product">
+
+                <div class="product-code">
+                    ART-03
+                </div>
+
+                <h3>Posters</h3>
+
+                <p>
+                    예술 및 광고 문화와 함께 발전한 포스터 산업.
+                </p>
+
+            </div>
+
+
+            <div class="product">
+
+                <div class="product-code">
+                    ART-04
+                </div>
+
+                <h3>Media</h3>
+
+                <p>
+                    예술과 문화 전반을 다루는 미디어 산업.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ART REVOLUTION -->
+
+    <section class="section">
+
+        <div class="section-head">
+            <div class="section-title">06 / MAJOR HISTORY</div>
+            <div class="section-number">HISTORICAL RECORD</div>
+        </div>
+
+
+        <div class="history-box">
+
+            <div class="history-year">
+                HISTORICAL EVENT
+            </div>
+
+            <h2>Art Revolution</h2>
+
+            <p>
+                포인세티아에서 예술가들을 중심으로 일어난 역사적 혁명.
+                당시 예술가들은 지역의 산업 전체를 예술을 중심으로 유지해야 한다고 주장했고,
+                이러한 움직임은 결국 성공했다.
+            </p>
+
+            <p>
+                이후 포인세티아는 예술을 국가 산업의 중심에 두는 방향으로 발전했으며,
+                현재까지도 예술가와 창작 산업이 국가의 중요한 부분을 차지하고 있다.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- CHARACTERS -->
+
+    <section class="section">
+
+        <div class="section-head">
+            <div class="section-title">07 / PEOPLE</div>
+            <div class="section-number">CHARACTER DATABASE</div>
+        </div>
+
+
+        <div class="people-empty">
+
+            <div>
+                CHARACTER DATABASE<br>
+                <br>
+                PERSONNEL RECORDS WILL BE ADDED
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- RELATIONS -->
+
+    <section class="section">
+
+        <div class="section-head">
+            <div class="section-title">08 / FOREIGN RELATIONS</div>
+            <div class="section-number">INTERNATIONAL STATUS</div>
+        </div>
+
+
+        <div class="data-grid">
+
+            <div class="data-box">
+
+                <div class="data-label">
+                    GENERAL RELATIONS
+                </div>
+
+                <div class="data-value">
+                    Neutral
+                </div>
+
+                <div class="data-desc">
+                    특정 국가와 특별히 강한 관계를 맺고 있지는 않다.
+                </div>
+
+            </div>
+
+
+            <div class="data-box">
+
+                <div class="data-label">
+                    BORDER ACCESS
+                </div>
+
+                <div class="data-value">
+                    Bluebell
+                </div>
+
+                <div class="data-desc">
+                    국가 간 이동 시 라넌큘러스의 중립 구역을 거친다.
+                </div>
+
+            </div>
+
+
+            <div class="data-box">
+
+                <div class="data-label">
+                    STATUS
+                </div>
+
+                <div class="data-value">
+                    ACTIVE
+                </div>
+
+                <div class="data-desc">
+                    현재 정상적인 국가 기능을 유지하고 있다.
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer>
+
+    <div>
+        INTER-ZONE NETWORK
+    </div>
+
+    <div>
+        POINSETTIA / <span>REG-01</span>
+    </div>
+
+</footer>
+
+</body>
+</html>
