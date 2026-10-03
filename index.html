@@ -2,1507 +2,997 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>AREA CONTROL // INCIDENT 047</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>INTER-ZONE NETWORK</title>
 
 <style>
-*{box-sizing:border-box}
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Playfair+Display:wght@400;500;600&family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+html,body{
+    width:100%;
+    min-height:100%;
+}
 
 body{
-    margin:0;
-    background:#050708;
-    color:#aeb8b7;
-    font-family:"Courier New",monospace;
-    font-size:13px;
+    background:#080909;
+    color:#d9d9d4;
+    font-family:'Noto Sans KR',sans-serif;
+    overflow-x:hidden;
 }
 
-button,input,select,textarea{
-    font:inherit;
+/* ---------------- BACKGROUND ---------------- */
+
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    opacity:.16;
+    background-image:
+        linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+    background-size:40px 40px;
 }
 
-button{
-    cursor:pointer;
+body::after{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    background:
+        radial-gradient(circle at 50% 0%,rgba(170,190,175,.08),transparent 35%),
+        radial-gradient(circle at 90% 80%,rgba(120,130,150,.04),transparent 30%);
 }
 
-::-webkit-scrollbar{
-    width:7px;
-}
-::-webkit-scrollbar-track{
-    background:#080b0c;
-}
-::-webkit-scrollbar-thumb{
-    background:#273436;
-}
+/* ---------------- HEADER ---------------- */
 
-/* =========================
-   전체 터미널
-========================= */
-
-#app{
-    min-height:100vh;
-}
-
-.topbar{
-    height:70px;
-    border-bottom:1px solid #263234;
+header{
+    position:relative;
+    z-index:2;
+    height:78px;
+    border-bottom:1px solid #272927;
     display:flex;
     align-items:center;
-    padding:0 24px;
-    background:#070a0b;
+    justify-content:space-between;
+    padding:0 55px;
+    background:rgba(8,9,9,.94);
 }
 
 .logo{
     display:flex;
     align-items:center;
-    gap:12px;
-    color:#d8dfdd;
-}
-
-.logo-mark{
-    font-size:25px;
-    font-weight:bold;
-    color:#d5dedb;
-}
-
-.logo-title{
-    font-size:17px;
-    letter-spacing:3px;
-}
-
-.logo-sub{
-    font-size:9px;
-    color:#667574;
-    margin-top:3px;
-}
-
-.system{
-    margin-left:auto;
-    text-align:right;
-    color:#657271;
-    font-size:10px;
-    line-height:1.7;
-}
-
-.online{
-    color:#63a990;
-}
-
-/* =========================
-   레이아웃
-========================= */
-
-.layout{
-    display:grid;
-    grid-template-columns:225px 1fr;
-    min-height:calc(100vh - 70px);
-}
-
-.sidebar{
-    border-right:1px solid #263234;
-    background:#070a0b;
-    padding:15px 0;
-}
-
-.side-title{
-    padding:10px 18px;
-    color:#53615f;
-    font-size:10px;
-    letter-spacing:2px;
-}
-
-.menu{
-    padding:0;
-    margin:0;
-    list-style:none;
-}
-
-.menu li{
-    border-top:1px solid #151d1e;
-}
-
-.menu button{
-    width:100%;
-    padding:11px 18px;
-    text-align:left;
-    background:transparent;
-    color:#788583;
-    border:0;
-}
-
-.menu button:hover,
-.menu button.active{
-    background:#101719;
-    color:#c6d1ce;
-}
-
-.menu button.active{
-    border-left:2px solid #7eaaa0;
-    padding-left:16px;
-}
-
-.menu .num{
-    color:#445250;
-    display:inline-block;
-    width:27px;
-}
-
-.main{
-    padding:22px;
-    overflow:hidden;
-}
-
-.section{
-    display:none;
-}
-
-.section.active{
-    display:block;
-}
-
-/* =========================
-   공통 패널
-========================= */
-
-.panel{
-    border:1px solid #293536;
-    background:#080c0d;
-    margin-bottom:15px;
-}
-
-.panel-head{
-    padding:11px 14px;
-    border-bottom:1px solid #202b2c;
-    color:#8d9a98;
-    letter-spacing:1px;
-    font-size:11px;
-}
-
-.panel-body{
-    padding:18px;
-}
-
-.grid{
-    display:grid;
     gap:15px;
 }
 
-.grid-2{
-    grid-template-columns:1fr 1fr;
+.logo-mark{
+    width:29px;
+    height:29px;
+    border:1px solid #737970;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:'DM Mono',monospace;
+    font-size:11px;
+    color:#bfc6bd;
 }
 
-.grid-3{
-    grid-template-columns:repeat(3,1fr);
+.logo-text{
+    font-family:'DM Mono',monospace;
+    font-size:13px;
+    letter-spacing:3px;
+    color:#e5e7e2;
 }
 
-.stat-grid{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:10px;
-}
-
-.stat{
-    border:1px solid #243031;
-    padding:14px;
-}
-
-.stat-name{
-    color:#596765;
-    font-size:9px;
-}
-
-.stat-value{
-    color:#bac5c2;
-    font-size:20px;
-    margin-top:6px;
-}
-
-.alert{
-    color:#c17c72;
-}
-
-.green{
-    color:#6baa91;
-}
-
-.yellow{
-    color:#b49b65;
-}
-
-.muted{
-    color:#566462;
-}
-
-.small{
+.status{
+    font-family:'DM Mono',monospace;
     font-size:10px;
+    letter-spacing:1px;
+    color:#71776f;
 }
 
-/* =========================
-   버튼 / 입력
-========================= */
-
-.btn{
-    border:1px solid #364545;
-    background:#0d1314;
-    color:#9ca9a7;
-    padding:9px 14px;
+.status span{
+    color:#aeb9aa;
 }
 
-.btn:hover{
-    background:#152021;
-    color:#d3ddda;
-}
+/* ---------------- MAIN ---------------- */
 
-.btn.primary{
-    border-color:#51776f;
-    color:#a7c9c0;
-}
-
-.btn.danger{
-    border-color:#704944;
-    color:#c4867c;
-}
-
-input,select,textarea{
-    background:#050808;
-    color:#aeb9b7;
-    border:1px solid #2b3939;
-    padding:9px;
-    outline:none;
-}
-
-input:focus,
-select:focus,
-textarea:focus{
-    border-color:#537d75;
-}
-
-input,select{
-    width:100%;
-}
-
-textarea{
-    width:100%;
-    min-height:150px;
-    resize:vertical;
-}
-
-/* =========================
-   Control Desk
-========================= */
-
-.incident{
-    border:1px solid #61403c;
-    background:#100b0b;
-}
-
-.incident .panel-head{
-    color:#bd8076;
-}
-
-.case-id{
-    font-size:24px;
-    color:#c5cfcc;
-    margin-bottom:5px;
-}
-
-.case-status{
-    color:#bd8076;
-}
-
-.log{
-    background:#050808;
-    border:1px solid #1e292a;
-    padding:15px;
-    line-height:1.9;
-    min-height:130px;
-}
-
-.log-line{
-    border-bottom:1px dotted #182122;
-    padding:3px 0;
-}
-
-/* =========================
-   구역 지도
-========================= */
-
-.map{
-    min-height:340px;
+main{
     position:relative;
-    background:
-        linear-gradient(90deg,transparent 49%,#182121 50%,transparent 51%),
-        linear-gradient(0deg,transparent 49%,#182121 50%,transparent 51%);
+    z-index:1;
+    max-width:1380px;
+    margin:auto;
+    padding:70px 55px 100px;
 }
 
-.region{
-    position:absolute;
-    width:120px;
-    height:75px;
-    border:1px solid #3a4948;
-    background:#0b1011;
-    padding:10px;
-    cursor:pointer;
-}
+/* ---------------- HERO ---------------- */
 
-.region:hover{
-    border-color:#76968f;
-    background:#10191a;
-}
-
-.region strong{
-    display:block;
-    color:#c0cac7;
-}
-
-.region span{
-    color:#596966;
-    font-size:9px;
-}
-
-.poin{
-    left:10%;
-    top:15%;
-}
-
-.arm{
-    right:10%;
-    top:15%;
-}
-
-.asph{
-    left:15%;
-    bottom:15%;
-}
-
-.zeph{
-    right:12%;
-    bottom:15%;
-    border-color:#65847d;
-}
-
-/* =========================
-   테이블
-========================= */
-
-table{
-    width:100%;
-    border-collapse:collapse;
-}
-
-th,td{
-    padding:9px;
-    border-bottom:1px solid #1c2728;
-    text-align:left;
-}
-
-th{
-    color:#596866;
-    font-size:10px;
-}
-
-td{
-    color:#929e9c;
-}
-
-tr:hover td{
-    background:#0d1314;
-}
-
-/* =========================
-   증거
-========================= */
-
-.evidence{
-    border:1px solid #293637;
-    padding:15px;
-    cursor:pointer;
-}
-
-.evidence:hover{
-    border-color:#6b8983;
-}
-
-.evidence.found{
-    border-color:#577b72;
-    background:#0b1514;
-}
-
-.evidence-title{
-    color:#bfcac7;
-    margin-bottom:8px;
-}
-
-.evidence-desc{
-    color:#657370;
-    line-height:1.7;
-}
-
-.evidence-result{
-    display:none;
-    margin-top:12px;
-    border-top:1px solid #253130;
-    padding-top:12px;
-    color:#9bb9b1;
-}
-
-/* =========================
-   사진 분석
-========================= */
-
-.photo{
-    height:430px;
-    border:1px solid #2a3637;
+.hero{
+    min-height:400px;
+    border:1px solid #292c29;
     position:relative;
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-end;
+    padding:48px;
     overflow:hidden;
     background:
-        radial-gradient(circle at 30% 40%,#333b3a 0 3%,transparent 3.5%),
-        linear-gradient(145deg,#161c1c,#070909);
+        linear-gradient(90deg,rgba(8,9,9,.98),rgba(8,9,9,.70)),
+        radial-gradient(circle at 75% 45%,#303a34,transparent 42%),
+        #0d0f0e;
 }
 
-.photo:before{
-    content:"EVIDENCE PHOTO // B-17";
+.hero::before{
+    content:"WORLD DATABASE / 2100—";
     position:absolute;
-    top:12px;
-    left:12px;
-    color:#65716f;
+    top:25px;
+    left:28px;
+    font-family:'DM Mono',monospace;
     font-size:10px;
+    letter-spacing:2px;
+    color:#5e655e;
 }
 
-.photo-object{
-    position:absolute;
-    cursor:pointer;
-    transition:.2s;
-}
-
-.photo-object:hover{
-    filter:brightness(1.5);
-}
-
-.obj1{
-    width:190px;
-    height:20px;
-    background:#69716f;
-    transform:rotate(-25deg);
-    left:40%;
-    top:52%;
-}
-
-.obj2{
-    width:60px;
-    height:60px;
-    border:7px solid #444c4a;
-    border-radius:50%;
-    left:20%;
-    top:65%;
-}
-
-.obj3{
-    width:15px;
-    height:100px;
-    background:#8b5d50;
-    transform:rotate(18deg);
-    right:20%;
-    top:22%;
-}
-
-/* =========================
-   CCTV
-========================= */
-
-.cctv{
-    height:390px;
-    border:12px solid #171e1e;
-    background:#080b0b;
-    position:relative;
-    overflow:hidden;
-}
-
-.cctv:after{
+.hero::after{
     content:"";
     position:absolute;
-    left:0;
-    right:0;
-    top:50%;
-    height:1px;
-    background:#344140;
-    box-shadow:0 -80px #1c2524,0 80px #1c2524;
-    opacity:.4;
-}
-
-.cctv-person{
-    position:absolute;
-    width:25px;
-    height:62px;
-    background:#555f5d;
-    border-radius:10px;
-}
-
-.cctv-person:before{
-    content:"";
-    position:absolute;
-    width:18px;
-    height:18px;
+    width:500px;
+    height:500px;
+    border:1px solid rgba(190,200,190,.05);
     border-radius:50%;
-    background:#697472;
-    top:-17px;
-    left:4px;
+    right:-170px;
+    top:-100px;
+    box-shadow:
+        0 0 0 80px rgba(190,200,190,.015),
+        0 0 0 160px rgba(190,200,190,.01);
 }
 
-.p1{
-    left:20%;
-    top:42%;
-}
-
-.p2{
-    left:55%;
-    top:25%;
-}
-
-.p3{
-    left:76%;
-    top:60%;
-}
-
-/* =========================
-   용의자
-========================= */
-
-.suspect{
-    padding:16px;
-    cursor:pointer;
-}
-
-.suspect:hover{
-    border-color:#637f79;
-}
-
-.suspect-name{
-    font-size:16px;
-    color:#c3cdca;
-}
-
-.suspect-role{
-    color:#806762;
-    font-size:10px;
-    margin-top:4px;
-}
-
-.dialogue{
-    background:#050808;
-    border-left:2px solid #3d5350;
-    padding:13px;
-    line-height:1.8;
-    margin-bottom:8px;
-}
-
-.question{
-    border-left-color:#79534d;
-}
-
-/* =========================
-   조사 메뉴
-========================= */
-
-.tool-grid{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:8px;
+.hero-small{
+    font-family:'DM Mono',monospace;
+    color:#899188;
+    letter-spacing:3px;
+    font-size:11px;
     margin-bottom:18px;
 }
 
-.tool{
-    padding:13px;
-    border:1px solid #293637;
-    background:#080c0d;
-    color:#71807d;
-    cursor:pointer;
+.hero h1{
+    font-family:'Playfair Display',serif;
+    font-size:clamp(50px,7vw,92px);
+    font-weight:400;
+    letter-spacing:-3px;
+    color:#eceee9;
+    line-height:.95;
 }
 
-.tool:hover,
-.tool.selected{
-    border-color:#587871;
-    color:#b4c5c0;
-    background:#0d1515;
-}
-
-/* =========================
-   모달
-========================= */
-
-.modal{
-    display:none;
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.8);
-    z-index:100;
-    align-items:center;
-    justify-content:center;
-    padding:20px;
-}
-
-.modal.show{
-    display:flex;
-}
-
-.modal-box{
-    width:min(700px,100%);
-    max-height:85vh;
-    overflow:auto;
-    border:1px solid #40504e;
-    background:#080c0d;
-}
-
-.modal-body{
-    padding:20px;
+.hero p{
+    margin-top:25px;
+    max-width:680px;
     line-height:1.9;
+    color:#969c95;
+    font-size:13px;
 }
 
-/* =========================
-   반응형
-========================= */
+.hero-line{
+    width:70px;
+    height:1px;
+    background:#818b80;
+    margin-top:30px;
+}
 
-@media(max-width:900px){
+/* ---------------- SECTION ---------------- */
 
-    .layout{
-        grid-template-columns:1fr;
+.section{
+    margin-top:85px;
+}
+
+.section-head{
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+    border-bottom:1px solid #292c29;
+    padding-bottom:16px;
+    margin-bottom:30px;
+}
+
+.section-title{
+    font-family:'DM Mono',monospace;
+    font-size:12px;
+    letter-spacing:3px;
+    color:#c8cec7;
+}
+
+.section-number{
+    font-family:'DM Mono',monospace;
+    color:#555b55;
+    font-size:10px;
+}
+
+/* ---------------- WORLD OVERVIEW ---------------- */
+
+.overview{
+    display:grid;
+    grid-template-columns:1.5fr 1fr 1fr;
+    gap:1px;
+    background:#292c29;
+    border:1px solid #292c29;
+}
+
+.overview-box{
+    background:#0c0e0d;
+    min-height:170px;
+    padding:30px;
+}
+
+.overview-label{
+    font-family:'DM Mono',monospace;
+    font-size:9px;
+    letter-spacing:2px;
+    color:#646b64;
+    margin-bottom:18px;
+}
+
+.overview-value{
+    font-family:'Playfair Display',serif;
+    font-size:28px;
+    color:#e0e3de;
+}
+
+.overview-desc{
+    margin-top:13px;
+    color:#777d77;
+    font-size:11px;
+    line-height:1.8;
+}
+
+/* ---------------- REGION GRID ---------------- */
+
+.regions{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+}
+
+.region{
+    min-height:330px;
+    border:1px solid #2a2d2a;
+    background:#0b0d0c;
+    position:relative;
+    overflow:hidden;
+    transition:.3s;
+}
+
+.region:hover{
+    border-color:#626a62;
+    transform:translateY(-3px);
+}
+
+.region::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+        linear-gradient(135deg,transparent 60%,rgba(170,180,170,.035));
+    pointer-events:none;
+}
+
+.region-top{
+    display:flex;
+    justify-content:space-between;
+    padding:24px 27px 0;
+}
+
+.region-code{
+    font-family:'DM Mono',monospace;
+    font-size:10px;
+    color:#616861;
+    letter-spacing:2px;
+}
+
+.region-status{
+    font-family:'DM Mono',monospace;
+    font-size:9px;
+    color:#717971;
+}
+
+.region-content{
+    padding:45px 27px 27px;
+}
+
+.region h3{
+    font-family:'Playfair Display',serif;
+    font-weight:400;
+    font-size:38px;
+    color:#e4e7e1;
+}
+
+.region-kor{
+    font-size:11px;
+    color:#727970;
+    margin-top:4px;
+}
+
+.region-desc{
+    margin-top:22px;
+    font-size:12px;
+    line-height:1.9;
+    color:#8b918a;
+    max-width:430px;
+}
+
+.region-info{
+    position:absolute;
+    bottom:24px;
+    left:27px;
+    right:27px;
+    display:flex;
+    gap:30px;
+    padding-top:15px;
+    border-top:1px solid #242724;
+}
+
+.info-item{
+    display:flex;
+    flex-direction:column;
+    gap:5px;
+}
+
+.info-label{
+    font-family:'DM Mono',monospace;
+    font-size:8px;
+    color:#555c55;
+    letter-spacing:1px;
+}
+
+.info-value{
+    font-size:10px;
+    color:#a0a69f;
+}
+
+/* ---------------- HISTORY ---------------- */
+
+.timeline{
+    position:relative;
+    border-left:1px solid #303430;
+    margin-left:14px;
+}
+
+.event{
+    position:relative;
+    padding:0 0 42px 40px;
+}
+
+.event:last-child{
+    padding-bottom:0;
+}
+
+.event::before{
+    content:"";
+    position:absolute;
+    width:7px;
+    height:7px;
+    border:1px solid #8a9289;
+    background:#080909;
+    left:-4px;
+    top:4px;
+}
+
+.event-year{
+    font-family:'DM Mono',monospace;
+    font-size:11px;
+    color:#899188;
+    letter-spacing:2px;
+}
+
+.event h3{
+    margin-top:8px;
+    font-family:'Playfair Display',serif;
+    font-size:22px;
+    font-weight:400;
+    color:#dce0da;
+}
+
+.event p{
+    max-width:730px;
+    margin-top:9px;
+    font-size:11px;
+    line-height:1.9;
+    color:#777d77;
+}
+
+/* ---------------- CHECKPOINT ---------------- */
+
+.checkpoint{
+    border:1px solid #333733;
+    display:grid;
+    grid-template-columns:1fr 1.4fr;
+    min-height:320px;
+}
+
+.checkpoint-left{
+    padding:40px;
+    background:#101310;
+    border-right:1px solid #292c29;
+}
+
+.checkpoint-code{
+    font-family:'DM Mono',monospace;
+    font-size:9px;
+    letter-spacing:2px;
+    color:#626a62;
+}
+
+.checkpoint h2{
+    font-family:'Playfair Display',serif;
+    font-weight:400;
+    font-size:43px;
+    margin-top:25px;
+    color:#e5e8e3;
+}
+
+.checkpoint-sub{
+    font-size:11px;
+    color:#747b73;
+    margin-top:5px;
+}
+
+.checkpoint-right{
+    padding:40px;
+}
+
+.checkpoint-right p{
+    font-size:12px;
+    line-height:2;
+    color:#8d938c;
+}
+
+.rules{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:1px;
+    background:#292c29;
+    margin-top:25px;
+}
+
+.rule{
+    background:#0c0e0d;
+    padding:18px;
+}
+
+.rule-number{
+    font-family:'DM Mono',monospace;
+    color:#555d56;
+    font-size:9px;
+}
+
+.rule-text{
+    margin-top:7px;
+    font-size:10px;
+    color:#a2a79f;
+}
+
+/* ---------------- PERMITS ---------------- */
+
+.documents{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+}
+
+.document{
+    border:1px solid #292c29;
+    padding:27px;
+    background:#0b0d0c;
+    min-height:190px;
+}
+
+.document-code{
+    font-family:'DM Mono',monospace;
+    font-size:9px;
+    color:#606860;
+}
+
+.document h3{
+    font-family:'Playfair Display',serif;
+    font-size:23px;
+    font-weight:400;
+    margin-top:20px;
+    color:#d9ddd7;
+}
+
+.document p{
+    font-size:10px;
+    line-height:1.8;
+    color:#737a72;
+    margin-top:10px;
+}
+
+/* ---------------- FOOTER ---------------- */
+
+footer{
+    border-top:1px solid #272927;
+    padding:30px 55px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    color:#555b55;
+    font-family:'DM Mono',monospace;
+    font-size:9px;
+    letter-spacing:1px;
+}
+
+footer span{
+    color:#737a72;
+}
+
+/* ---------------- MOBILE : SCALE, NOT REFLOW ---------------- */
+
+@media(max-width:700px){
+
+    body{
+        min-width:1000px;
     }
 
-    .sidebar{
-        border-right:0;
-        border-bottom:1px solid #263234;
+    header{
+        height:65px;
+        padding:0 35px;
     }
 
-    .menu{
-        display:grid;
-        grid-template-columns:repeat(2,1fr);
+    main{
+        width:1000px;
+        padding:55px 35px 80px;
     }
 
-    .stat-grid,
-    .grid-3{
+    .hero{
+        min-height:390px;
+    }
+
+    .overview{
+        grid-template-columns:1.5fr 1fr 1fr;
+    }
+
+    .regions{
         grid-template-columns:1fr 1fr;
     }
 
-}
-
-@media(max-width:600px){
-
-    .main{
-        padding:10px;
+    .checkpoint{
+        grid-template-columns:1fr 1.4fr;
     }
 
-    .grid-2,
-    .stat-grid,
-    .grid-3{
-        grid-template-columns:1fr;
+    .documents{
+        grid-template-columns:repeat(3,1fr);
     }
 
-    .menu{
-        grid-template-columns:1fr;
+    footer{
+        min-width:1000px;
     }
-
 }
 </style>
 </head>
 
 <body>
 
-<div id="app">
-
-<header class="topbar">
+<header>
 
     <div class="logo">
-
-        <div class="logo-mark">AC</div>
-
-        <div>
-            <div class="logo-title">AREA CONTROL</div>
-            <div class="logo-sub">
-                TRANS-REGIONAL AUTHORITY // INVESTIGATION TERMINAL
-            </div>
-        </div>
-
+        <div class="logo-mark">IZ</div>
+        <div class="logo-text">INTER-ZONE NETWORK</div>
     </div>
 
-    <div class="system">
-
-        <div class="online">● SYSTEM ONLINE</div>
-        <div>SECURITY LV.04</div>
-        <div id="clock">0000-00-00 00:00:00</div>
-
+    <div class="status">
+        NETWORK STATUS : <span>ONLINE</span>
     </div>
 
 </header>
 
 
-<div class="layout">
+<main>
 
-<!-- =========================
-     SIDE MENU
-========================= -->
+    <!-- HERO -->
 
-<aside class="sidebar">
+    <section class="hero">
 
-    <div class="side-title">
-        CONTROL SYSTEM
-    </div>
-
-    <ul class="menu">
-
-        <li>
-            <button class="active" onclick="openSection('desk',this)">
-                <span class="num">01</span> CONTROL DESK
-            </button>
-        </li>
-
-        <li>
-            <button onclick="openSection('checkpoint',this)">
-                <span class="num">02</span> CHECKPOINT
-            </button>
-        </li>
-
-        <li>
-            <button onclick="openSection('regions',this)">
-                <span class="num">03</span> REGIONAL PORTALS
-            </button>
-        </li>
-
-        <li>
-            <button onclick="openSection('reports',this)">
-                <span class="num">04</span> CITIZEN REPORTS
-            </button>
-        </li>
-
-        <li>
-            <button onclick="openSection('people',this)">
-                <span class="num">05</span> PERSON DATABASE
-            </button>
-        </li>
-
-        <li>
-            <button onclick="openSection('map',this)">
-                <span class="num">06</span> WORLD MAP
-            </button>
-        </li>
-
-        <li>
-            <button onclick="openSection('cargo',this)">
-                <span class="num">07</span> CARGO
-            </button>
-        </li>
-
-        <li>
-            <button onclick="openSection('scanner',this)">
-                <span class="num">08</span> SCANNER
-            </button>
-        </li>
-
-        <li>
-            <button onclick="openSection('archive',this)">
-                <span class="num">09</span> ARCHIVE
-            </button>
-        </li>
-
-        <li>
-            <button onclick="openSection('evidence',this)">
-                <span class="num">10</span> EVIDENCE
-            </button>
-        </li>
-
-        <li>
-            <button onclick="openSection('photo',this)">
-                <span class="num">11</span> PHOTO ANALYSIS
-            </button>
-        </li>
-
-        <li>
-            <button onclick="openSection('cctv',this)">
-                <span class="num">12</span> CCTV
-            </button>
-        </li>
-
-        <li>
-            <button onclick="openSection('suspects',this)">
-                <span class="num">13</span> SUSPECTS
-            </button>
-        </li>
-
-        <li>
-            <button onclick="openSection('conclusion',this)">
-                <span class="num">14</span> CONCLUSION
-            </button>
-        </li>
-
-    </ul>
-
-</aside>
-
-
-<!-- =========================
-     MAIN
-========================= -->
-
-<main class="main">
-
-
-<!-- CONTROL DESK -->
-
-<section id="desk" class="section active">
-
-    <div class="panel">
-
-        <div class="panel-head">
-            CONTROL DESK // REGIONAL ACCESS MONITORING TERMINAL
+        <div class="hero-small">
+            GLOBAL INFORMATION DATABASE
         </div>
 
-        <div class="panel-body">
+        <h1>THE WORLD<br>OF 2100—</h1>
 
-            <div class="case-id">
-                INCIDENT #047
+        <p>
+            21세기의 지구.
+            인류 감축 정책과 그 이후의 전쟁을 거쳐 분리된 네 개의 국가와
+            어느 국가에도 속하지 않는 중립 구역이 존재한다.
+            본 데이터베이스는 각 지역의 역사와 제도, 사회 및 주요 정보를 기록한다.
+        </p>
+
+        <div class="hero-line"></div>
+
+    </section>
+
+
+    <!-- WORLD -->
+
+    <section class="section">
+
+        <div class="section-head">
+            <div class="section-title">01 / WORLD OVERVIEW</div>
+            <div class="section-number">GLOBAL DATA</div>
+        </div>
+
+        <div class="overview">
+
+            <div class="overview-box">
+                <div class="overview-label">PLANET</div>
+                <div class="overview-value">Earth</div>
+                <div class="overview-desc">
+                    인류가 살아가는 현재의 지구.
+                    네 개의 국가와 하나의 중립 구역으로 나뉘어 있다.
+                </div>
             </div>
 
-            <div class="case-status">
-                ● ACTIVE INVESTIGATION
+            <div class="overview-box">
+                <div class="overview-label">ERA</div>
+                <div class="overview-value">2100s</div>
+                <div class="overview-desc">
+                    인류 감축 정책 이후의 시대.
+                </div>
             </div>
 
-            <p class="muted">
-                제피란테스 중립 구역에서 발생한 비인가 활동 및
-                실종 사건에 대한 조사 기록.
-            </p>
-
-        </div>
-
-    </div>
-
-
-    <div class="incident panel">
-
-        <div class="panel-head">
-            CURRENT INCIDENT // RESTRICTED
-        </div>
-
-        <div class="panel-body">
-
-            <div class="grid grid-2">
-
-                <div>
-
-                    <p>
-                        <span class="muted">LOCATION</span><br>
-                        제피란테스 / 중립구역 B-17
-                    </p>
-
-                    <p>
-                        <span class="muted">INCIDENT TIME</span><br>
-                        02:17
-                    </p>
-
-                    <p>
-                        <span class="muted">VICTIM</span><br>
-                        윤서진 / 연구원
-                    </p>
-
+            <div class="overview-box">
+                <div class="overview-label">REGIONS</div>
+                <div class="overview-value">04 + 01</div>
+                <div class="overview-desc">
+                    네 국가와 라넌큘러스 중립 구역.
                 </div>
-
-                <div>
-
-                    <p>
-                        <span class="muted">ALERT LEVEL</span><br>
-                        <span class="alert">03 / INVESTIGATION REQUIRED</span>
-                    </p>
-
-                    <p>
-                        <span class="muted">KNOWN GROUP</span><br>
-                        석산교 / ZEPHYRANTHES
-                    </p>
-
-                    <p>
-                        <span class="muted">STATUS</span><br>
-                        <span class="yellow">MULTIPLE DATA INCONSISTENCIES</span>
-                    </p>
-
-                </div>
-
             </div>
 
         </div>
 
-    </div>
+    </section>
 
 
-    <div class="stat-grid">
+    <!-- REGIONS -->
 
-        <div class="stat">
-            <div class="stat-name">EVIDENCE</div>
-            <div class="stat-value" id="statEvidence">0 / 4</div>
+    <section class="section">
+
+        <div class="section-head">
+            <div class="section-title">02 / REGIONS</div>
+            <div class="section-number">FOUR NATIONS</div>
         </div>
 
-        <div class="stat">
-            <div class="stat-name">CCTV</div>
-            <div class="stat-value" id="statCCTV">LOCKED</div>
-        </div>
+        <div class="regions">
 
-        <div class="stat">
-            <div class="stat-name">PERSONS</div>
-            <div class="stat-value" id="statPeople">0 / 3</div>
-        </div>
+            <!-- POINSETTIA -->
 
-        <div class="stat">
-            <div class="stat-name">ARCHIVE</div>
-            <div class="stat-value" id="statArchive">LOCKED</div>
-        </div>
+            <article class="region">
 
-    </div>
-
-
-    <div class="panel">
-
-        <div class="panel-head">
-            SYSTEM LOG
-        </div>
-
-        <div class="panel-body">
-
-            <div class="log" id="systemLog">
-
-                <div class="log-line">
-                    [SYSTEM] Investigation terminal initialized.
+                <div class="region-top">
+                    <div class="region-code">REG-01</div>
+                    <div class="region-status">CONSTITUTIONAL MONARCHY</div>
                 </div>
 
-                <div class="log-line">
-                    [02:13:49] CCTV SIGNAL INTERRUPTION.
-                </div>
-
-                <div class="log-line">
-                    [02:17:03] UNAUTHORIZED ACCESS DETECTED.
-                </div>
-
-                <div class="log-line">
-                    [02:21:18]
-                    <span class="alert">
-                    SEOKSAN RELIGIOUS GROUP ACTIVITY DETECTED.
-                    </span>
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- CHECKPOINT -->
-
-<section id="checkpoint" class="section">
-
-    <div class="panel">
-
-        <div class="panel-head">
-            CHECKPOINT // TRANS-REGIONAL PASSAGE INSPECTION
-        </div>
-
-        <div class="panel-body">
-
-            <div class="grid grid-2">
-
-                <div>
-                    <label>ORIGIN</label>
-                    <select id="origin">
-                        <option>포인세티아</option>
-                        <option>아르메리아</option>
-                        <option>아스포델</option>
-                        <option>제피란테스</option>
-                    </select>
-                </div>
-
-                <div>
-                    <label>DESTINATION</label>
-                    <select id="destination">
-                        <option>제피란테스</option>
-                        <option>포인세티아</option>
-                        <option>아르메리아</option>
-                        <option>아스포델</option>
-                    </select>
-                </div>
-
-            </div>
-
-            <br>
-
-            <label>CITIZEN ID</label>
-
-            <input id="citizenID"
-                   placeholder="ATC-XXXX-0000">
-
-            <br><br>
-
-            <button class="btn primary"
-                    onclick="inspectCheckpoint()">
-                INSPECT
-            </button>
-
-            <div id="checkpointResult"
-                 class="panel"
-                 style="margin-top:15px;display:none">
-
-                <div class="panel-body"></div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- REGIONAL PORTALS -->
-
-<section id="regions" class="section">
-
-    <div class="panel">
-
-        <div class="panel-head">
-            REGIONAL PORTALS // SELECT REGION
-        </div>
-
-        <div class="panel-body">
-
-            <div class="grid grid-2">
-
-                <button class="btn" onclick="regionInfo('포인세티아')">
-                    🌺 포인세티아
-                </button>
-
-                <button class="btn" onclick="regionInfo('아르메리아')">
-                    ⚔ 아르메리아
-                </button>
-
-                <button class="btn" onclick="regionInfo('아스포델')">
-                    🪦 아스포델
-                </button>
-
-                <button class="btn primary"
-                        onclick="regionInfo('제피란테스')">
-                    🌿 제피란테스
-                </button>
-
-            </div>
-
-            <div id="regionResult"
-                 class="panel"
-                 style="margin-top:15px">
-
-                <div class="panel-body muted">
-                    지역을 선택하십시오.
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- REPORTS -->
-
-<section id="reports" class="section">
-
-    <div class="panel">
-
-        <div class="panel-head">
-            CITIZEN REPORTS // PUBLIC SUBMISSIONS / UNVERIFIED
-        </div>
-
-        <div class="panel-body">
-
-            <table>
-
-                <tr>
-                    <th>TIME</th>
-                    <th>REGION</th>
-                    <th>REPORT</th>
-                    <th>STATUS</th>
-                </tr>
-
-                <tr>
-                    <td>01:42</td>
-                    <td>제피란테스</td>
-                    <td>
-                        "밤마다 검은 옷을 입은 사람들이
-                        폐쇄된 시설로 들어간다."
-                    </td>
-                    <td class="yellow">UNVERIFIED</td>
-                </tr>
-
-                <tr>
-                    <td>02:04</td>
-                    <td>제피란테스</td>
-                    <td>
-                        "석산교 사람들이 특정 화물을
-                        옮기는 것을 봤다."
-                    </td>
-                    <td class="yellow">UNVERIFIED</td>
-                </tr>
-
-                <tr>
-                    <td>02:29</td>
-                    <td>아르메리아</td>
-                    <td>
-                        "제피란테스에서 넘어온 차량이
-                        검문을 피했다."
-                    </td>
-                    <td>REVIEW</td>
-                </tr>
-
-            </table>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- PEOPLE -->
-
-<section id="people" class="section">
-
-    <div class="panel">
-
-        <div class="panel-head">
-            PERSON DATABASE // IDENTITY / TRANSIT RECORDS
-        </div>
-
-        <div class="panel-body">
-
-            <div style="display:flex;gap:8px">
-
-                <input id="personSearch"
-                       placeholder="이름 또는 ATC ID">
-
-                <button class="btn"
-                        onclick="searchPerson()">
-                    SEARCH
-                </button>
-
-            </div>
-
-            <div id="personResult"
-                 style="margin-top:15px"></div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- MAP -->
-
-<section id="map" class="section">
-
-    <div class="panel">
-
-        <div class="panel-head">
-            WORLD MAP // REGIONAL TRANSIT NETWORK
-        </div>
-
-        <div class="panel-body">
-
-            <div class="map">
-
-                <div class="region poin"
-                     onclick="regionInfo('포인세티아')">
-                    <strong>🌺 포인세티아</strong>
-                    <span>REGION 01</span>
-                </div>
-
-                <div class="region arm"
-                     onclick="regionInfo('아르메리아')">
-                    <strong>⚔ 아르메리아</strong>
-                    <span>REGION 02</span>
-                </div>
-
-                <div class="region asph"
-                     onclick="regionInfo('아스포델')">
-                    <strong>🪦 아스포델</strong>
-                    <span>REGION 03</span>
-                </div>
-
-                <div class="region zeph"
-                     onclick="regionInfo('제피란테스')">
-                    <strong>🌿 제피란테스</strong>
-                    <span>NEUTRAL REGION</span>
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- CARGO -->
-
-<section id="cargo" class="section">
-
-    <div class="panel">
-
-        <div class="panel-head">
-            CARGO TRACKING SYSTEM
-        </div>
-
-        <div class="panel-body">
-
-            <input id="cargoCode"
-                   placeholder="예: CARGO-Z-0417">
-
-            <br><br>
-
-            <button class="btn primary"
-                    onclick="trackCargo()">
-                TRACK
-            </button>
-
-            <div id="cargoResult"
-                 class="panel"
-                 style="margin-top:15px;display:none">
-
-                <div class="panel-body"></div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- SCANNER -->
-
-<section id="scanner" class="section">
-
-    <div class="panel">
-
-        <div class="panel-head">
-            SCANNER // DATABASE / CARGO / SECURITY ACCESS
-        </div>
-
-        <div class="panel-body">
-
-            <input id="scanCode"
-                   placeholder="ID / CARGO CODE / SECURITY CODE">
-
-            <br><br>
-
-            <button class="btn primary"
-                    onclick="scanCode()">
-                SCAN
-            </button>
-
-            <div id="scanResult"
-                 class="panel"
-                 style="margin-top:15px;display:none">
-
-                <div class="panel-body"></div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- ARCHIVE -->
-
-<section id="archive" class="section">
-
-    <div class="panel">
-
-        <div class="panel-head">
-            ARCHIVE // RESTRICTED DOCUMENT STORAGE
-        </div>
-
-        <div class="panel-body">
-
-            <div class="grid grid-2">
-
-                <button class="btn"
-                        onclick="openArchive('history')">
-                    제피란테스 역사 기록
-                </button>
-
-                <button class="btn"
-                        onclick="openArchive('religion')">
-                    종교 단체 기록
-                </button>
-
-                <button class="btn"
-                        onclick="openArchive('restricted')">
-                    RESTRICTED FILE
-                </button>
-
-                <button class="btn"
-                        onclick="openArchive('incident')">
-                    INCIDENT #047
-                </button>
-
-            </div>
-
-            <div id="archiveResult"
-                 class="panel"
-                 style="margin-top:15px">
-
-                <div class="panel-body muted">
-                    문서를 선택하십시오.
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- EVIDENCE -->
-
-<section id="evidence" class="section">
-
-    <div class="panel">
-
-        <div class="panel-head">
-            INCIDENT #047 // EVIDENCE COLLECTION
-        </div>
-
-        <div class="panel-body">
-
-            <div class="grid grid-2">
-
-                <div class="evidence"
-                     onclick="collectEvidence(1)">
-
-                    <div class="evidence-title">
-                        E-01 // 금속 파편
+                <div class="region-content">
+
+                    <h3>Poinsettia</h3>
+                    <div class="region-kor">포인세티아</div>
+
+                    <div class="region-desc">
+                        예술을 중심으로 발전한 국가.
+                        예술 혁명 이후 예술 산업이 국가의 중심적인 산업으로 자리잡았다.
+                        도시 곳곳에서 예술가와 디자이너들이 활동한다.
                     </div>
 
-                    <div class="evidence-desc">
-                        현장 바닥에서 발견된 검은색 금속 조각.
+                </div>
+
+                <div class="region-info">
+
+                    <div class="info-item">
+                        <div class="info-label">CAPITAL</div>
+                        <div class="info-value">Lobelia</div>
                     </div>
 
-                    <div id="ev1"></div>
+                    <div class="info-item">
+                        <div class="info-label">CURRENCY</div>
+                        <div class="info-value">Lumen</div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-label">INDUSTRY</div>
+                        <div class="info-value">ART</div>
+                    </div>
 
                 </div>
 
+            </article>
 
-                <div class="evidence"
-                     onclick="collectEvidence(2)">
 
-                    <div class="evidence-title">
-                        E-02 // 정지된 시계
+            <!-- ARMERIA -->
+
+            <article class="region">
+
+                <div class="region-top">
+                    <div class="region-code">REG-02</div>
+                    <div class="region-status">REPUBLIC</div>
+                </div>
+
+                <div class="region-content">
+
+                    <h3>Armeria</h3>
+                    <div class="region-kor">아르메리아</div>
+
+                    <div class="region-desc">
+                        과학을 중심으로 발전한 국가.
+                        높은 교육 수준과 시험, 지능, 출신 배경 등을 중요하게 여기며
+                        사회 전반에 엘리트 중심의 문화가 강하게 자리잡고 있다.
                     </div>
-
-                    <div class="evidence-desc">
-                        02:17에서 멈춘 피해자의 손목시계.
-                    </div>
-
-                    <div id="ev2"></div>
 
                 </div>
 
+                <div class="region-info">
 
-                <div class="evidence"
-                     onclick="collectEvidence(3)">
-
-                    <div class="evidence-title">
-                        E-03 // 붉은 섬유
+                    <div class="info-item">
+                        <div class="info-label">CAPITAL</div>
+                        <div class="info-value">Cattleya</div>
                     </div>
 
-                    <div class="evidence-desc">
-                        피해자의 옷에서 발견된 붉은 합성섬유.
+                    <div class="info-item">
+                        <div class="info-label">CURRENCY</div>
+                        <div class="info-value">CB</div>
                     </div>
 
-                    <div id="ev3"></div>
+                    <div class="info-item">
+                        <div class="info-label">INDUSTRY</div>
+                        <div class="info-value">SCIENCE</div>
+                    </div>
 
                 </div>
 
+            </article>
 
-                <div class="evidence"
-                     onclick="collectEvidence(4)">
 
-                    <div class="evidence-title">
-                        E-04 // 석산 문양
+            <!-- ASPHODEL -->
+
+            <article class="region">
+
+                <div class="region-top">
+                    <div class="region-code">REG-03</div>
+                    <div class="region-status">ONE-PARTY STATE</div>
+                </div>
+
+                <div class="region-content">
+
+                    <h3>Asphodel</h3>
+                    <div class="region-kor">아스포델</div>
+
+                    <div class="region-desc">
+                        추운 기후와 눈이 잦은 지역.
+                        캔과 플라스틱 산업이 발달했으며,
+                        독특한 식품인 이끼딸기와 눈설탕이 존재한다.
                     </div>
-
-                    <div class="evidence-desc">
-                        벽면 안쪽에서 발견된 미확인 종교 문양.
-                    </div>
-
-                    <div id="ev4"></div>
 
                 </div>
+
+                <div class="region-info">
+
+                    <div class="info-item">
+                        <div class="info-label">CAPITAL</div>
+                        <div class="info-value">Cyclamen</div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-label">CURRENCY</div>
+                        <div class="info-value">Lumen</div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-label">INDUSTRY</div>
+                        <div class="info-value">MANUFACTURING</div>
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <!-- ZEPHYRANTHES -->
+
+            <article class="region">
+
+                <div class="region-top">
+                    <div class="region-code">REG-04</div>
+                    <div class="region-status">NO GOVERNMENT</div>
+                </div>
+
+                <div class="region-content">
+
+                    <h3>Zephyranthes</h3>
+                    <div class="region-kor">제피란테스</div>
+
+                    <div class="region-desc">
+                        정부가 존재하지 않는 지역.
+                        비가 자주 내리고 기온이 낮으며,
+                        화학 연구와 각종 화학 관련 산업이 발달해 있다.
+                    </div>
+
+                </div>
+
+                <div class="region-info">
+
+                    <div class="info-item">
+                        <div class="info-label">CAPITAL</div>
+                        <div class="info-value">Carinata</div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-label">CURRENCY</div>
+                        <div class="info-value">CB</div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-label">INDUSTRY</div>
+                        <div class="info-value">CHEMISTRY</div>
+                    </div>
+
+                </div>
+
+            </article>
+
+        </div>
+
+    </section>
+
+
+    <!-- HISTORY -->
+
+    <section class="section">
+
+        <div class="section-head">
+            <div class="section-title">03 / HISTORY</div>
+            <div class="section-number">RECORDED EVENTS</div>
+        </div>
+
+        <div class="timeline">
+
+            <div class="event">
+
+                <div class="event-year">1800s</div>
+
+                <h3>인류 감축 정책</h3>
+
+                <p>
+                    인간의 과도한 밀집으로 인해 경제적·사회적 문제가 발생하기 시작했고,
+                    연합은 인류 감축 정책을 시행한다.
+                    초기에는 유전적 선별과 제거가 이루어졌으며,
+                    이후 정책은 더욱 강압적인 형태로 확대되었다.
+                </p>
+
+            </div>
+
+
+            <div class="event">
+
+                <div class="event-year">2028</div>
+
+                <h3>라플레시아 전쟁</h3>
+
+                <p>
+                    아르메리아와 아스포델 사이에서 발생한 전쟁.
+                    서로의 관점과 이해관계를 이해하지 못한 것이
+                    갈등의 핵심적인 원인이 되었다.
+                    전쟁은 아르메리아의 승리로 끝났다.
+                </p>
+
+            </div>
+
+
+            <div class="event">
+
+                <div class="event-year">2030</div>
+
+                <h3>대숙청 사건</h3>
+
+                <p>
+                    제피란테스에서 지속적인 세금 압박과
+                    지역 붕괴의 위험이 커지자 반란이 발생했다.
+                    반란 세력은 당시의 지도자를 숙청했으며,
+                    이후 제피란테스에는 정부가 존재하지 않게 되었다.
+                </p>
+
+            </div>
+
+
+            <div class="event">
+
+                <div class="event-year">—</div>
+
+                <h3>국가의 분리</h3>
+
+                <p>
+                    인류 감축 정책에 대한 반발은 폭동과 전쟁으로 이어졌고,
+                    오랜 혼란 이후 현재의 네 국가가 형성되었다.
+                    연합은 해체되었으며 정책에 관여한 고위 인사들은 처형되었다.
+                </p>
 
             </div>
 
         </div>
 
-    </div>
-
-</section>
+    </section>
 
 
-<!-- PHOTO -->
+    <!-- BLUEBELL -->
 
-<section id="photo" class="section">
+    <section class="section">
 
-    <div class="panel">
-
-        <div class="panel-head">
-            PHOTO ANALYSIS // ENHANCEMENT TERMINAL
+        <div class="section-head">
+            <div class="section-title">04 / NEUTRAL ZONE</div>
+            <div class="section-number">RANUNCULUS</div>
         </div>
 
-        <div class="panel-body">
+        <div class="checkpoint">
 
-            <div class="grid grid-2">
+            <div class="checkpoint-left">
 
-                <div class="photo">
-
-                    <div class="photo-object obj1"
-                         onclick="zoomPhoto(1)"></div>
-
-                    <div class="photo-object obj2"
-                         onclick="zoomPhoto(2)"></div>
-
-                    <div class="photo-object obj3"
-                         onclick="zoomPhoto(3)"></div>
-
+                <div class="checkpoint-code">
+                    NEUTRAL TERRITORY / R-00
                 </div>
 
-                <div>
+                <h2>Bluebell</h2>
 
-                    <div class="panel">
+                <div class="checkpoint-sub">
+                    Ranunculus / 라넌큘러스
+                </div>
 
-                        <div class="panel-head">
-                            MAGNIFICATION RESULT
+            </div>
+
+
+            <div class="checkpoint-right">
+
+                <p>
+                    라넌큘러스는 어떠한 국가에도 속하지 않는 중립 구역이다.
+                    그 중심에는 블루벨 도시와 국가 간 이동을 연결하는 검문소가 존재한다.
+                </p>
+
+                <p style="margin-top:15px;">
+                    국가 간 이동을 위해서는 반드시 이곳을 거쳐야 한다.
+                    어느 국가도 블루벨의 중립성을 침해하지 않으며,
+                    이곳에 대한 직접적인 간섭은 전쟁으로 이어질 가능성이 있다.
+                </p>
+
+
+                <div class="rules">
+
+                    <div class="rule">
+                        <div class="rule-number">01</div>
+                        <div class="rule-text">
+                            신분증 확인
                         </div>
+                    </div>
 
-                        <div class="panel-body"
-                             id="photoResult">
-
-                            조사 대상을 선택하십시오.
-
+                    <div class="rule">
+                        <div class="rule-number">02</div>
+                        <div class="rule-text">
+                            이동 목적 확인
                         </div>
+                    </div>
 
+                    <div class="rule">
+                        <div class="rule-number">03</div>
+                        <div class="rule-text">
+                            소지품 검사
+                        </div>
+                    </div>
+
+                    <div class="rule">
+                        <div class="rule-number">04</div>
+                        <div class="rule-text">
+                            관련 서류 확인
+                        </div>
                     </div>
 
                 </div>
@@ -1511,1136 +1001,140 @@ tr:hover td{
 
         </div>
 
-    </div>
-
-</section>
+    </section>
 
 
-<!-- CCTV -->
+    <!-- DOCUMENTS -->
 
-<section id="cctv" class="section">
+    <section class="section">
 
-    <div class="panel">
-
-        <div class="panel-head">
-            CCTV // B-17 SECURITY CAMERA
+        <div class="section-head">
+            <div class="section-title">05 / DOCUMENTS</div>
+            <div class="section-number">TRAVEL AUTHORIZATION</div>
         </div>
 
-        <div class="panel-body">
+        <div class="documents">
 
-            <div class="cctv">
+            <div class="document">
 
-                <div class="cctv-person p1"></div>
-                <div class="cctv-person p2"></div>
-                <div class="cctv-person p3"></div>
+                <div class="document-code">DOC-01</div>
+
+                <h3>Residence Permit</h3>
+
+                <p>
+                    타 지역에서의 거주를 위해 요구되는
+                    거주 허가 문서.
+                </p>
 
             </div>
 
-            <br>
 
-            <button class="btn"
-                    onclick="cctvTime('02:10')">
-                02:10
-            </button>
+            <div class="document">
 
-            <button class="btn"
-                    onclick="cctvTime('02:17')">
-                02:17
-            </button>
+                <div class="document-code">DOC-02</div>
 
-            <button class="btn"
-                    onclick="cctvTime('02:25')">
-                02:25
-            </button>
+                <h3>Diplomatic Permit</h3>
 
-            <button class="btn danger"
-                    onclick="restoreCCTV()">
-                RESTORE DAMAGED FRAME
-            </button>
+                <p>
+                    외교적 목적의 이동을 증명하기 위한
+                    공식 허가 문서.
+                </p>
 
-            <div id="cctvResult"
-                 class="log"
-                 style="margin-top:15px">
+            </div>
 
-                CCTV FRAME READY.
+
+            <div class="document">
+
+                <div class="document-code">DOC-03</div>
+
+                <h3>International Special Permit</h3>
+
+                <p>
+                    일반적인 이동 절차와 다른 특별한 사유로
+                    국경을 통과하기 위한 허가 문서.
+                </p>
 
             </div>
 
         </div>
 
-    </div>
-
-</section>
+    </section>
 
 
-<!-- SUSPECTS -->
+    <!-- RESTRICTIONS -->
 
-<section id="suspects" class="section">
+    <section class="section">
 
-    <div class="panel">
-
-        <div class="panel-head">
-            PERSON DATABASE // INVESTIGATION INTERFACE
+        <div class="section-head">
+            <div class="section-title">06 / RESTRICTIONS</div>
+            <div class="section-number">CHECKPOINT REGULATION</div>
         </div>
 
-        <div class="panel-body">
+        <div class="overview">
 
-            <div class="grid grid-3">
+            <div class="overview-box">
 
-                <div class="panel suspect"
-                     onclick="interrogate('hana')">
+                <div class="overview-label">PROHIBITED</div>
 
-                    <div class="suspect-name">
-                        한유진
-                    </div>
-
-                    <div class="suspect-role">
-                        SECURITY OFFICER
-                    </div>
-
-                    <p class="muted">
-                        사건 당시 서버실 근무.
-                    </p>
-
+                <div class="overview-value">
+                    Weapons
                 </div>
 
-
-                <div class="panel suspect"
-                     onclick="interrogate('min')">
-
-                    <div class="suspect-name">
-                        민도윤
-                    </div>
-
-                    <div class="suspect-role">
-                        RESEARCHER
-                    </div>
-
-                    <p class="muted">
-                        피해자의 동료 연구원.
-                    </p>
-
-                </div>
-
-
-                <div class="panel suspect"
-                     onclick="interrogate('rae')">
-
-                    <div class="suspect-name">
-                        레이
-                    </div>
-
-                    <div class="suspect-role">
-                        EXTERNAL CONTRACTOR
-                    </div>
-
-                    <p class="muted">
-                        사건 당시 건물 외부에 있었다고 주장.
-                    </p>
-
+                <div class="overview-desc">
+                    검문소를 통과할 때 무기의 소지는 금지된다.
                 </div>
 
             </div>
 
 
-            <div id="interrogation"
-                 class="panel"
-                 style="display:none;margin-top:15px">
+            <div class="overview-box">
 
-                <div class="panel-head"
-                     id="suspectHeader">
+                <div class="overview-label">PROHIBITED</div>
+
+                <div class="overview-value">
+                    State Secrets
                 </div>
 
-                <div class="panel-body">
+                <div class="overview-desc">
+                    국가 기밀에 해당하는 물품 및 정보의 반출입은 금지된다.
+                </div>
 
-                    <div id="dialogue"></div>
+            </div>
 
-                    <div id="questions"></div>
 
+            <div class="overview-box">
+
+                <div class="overview-label">ACCESS</div>
+
+                <div class="overview-value">
+                    OPEN
+                </div>
+
+                <div class="overview-desc">
+                    국제 범죄자가 아니며 신분증이 위조되지 않았다면
+                    일반적인 국경 통과가 가능하다.
                 </div>
 
             </div>
 
         </div>
 
-    </div>
-
-</section>
-
-
-<!-- CONCLUSION -->
-
-<section id="conclusion" class="section">
-
-    <div class="panel">
-
-        <div class="panel-head">
-            FINAL REPORT // INCIDENT #047
-        </div>
-
-        <div class="panel-body">
-
-            <p class="muted">
-                확보한 증거와 각 시스템의 기록을 종합하여
-                사건을 재구성하십시오.
-            </p>
-
-            <div class="grid grid-3">
-
-                <button class="btn"
-                        onclick="chooseCulprit('hana')">
-                    한유진
-                </button>
-
-                <button class="btn"
-                        onclick="chooseCulprit('min')">
-                    민도윤
-                </button>
-
-                <button class="btn"
-                        onclick="chooseCulprit('rae')">
-                    레이
-                </button>
-
-            </div>
-
-            <br>
-
-            <div id="chosen"
-                 class="muted">
-                용의자를 선택하지 않았습니다.
-            </div>
-
-            <br>
-
-            <textarea id="finalText"
-                      placeholder="사건의 시간대, 증거, 용의자의 진술, 석산교와의 연결점을 이용하여 최종 결론을 작성하십시오."></textarea>
-
-            <br><br>
-
-            <button class="btn primary"
-                    onclick="submitCase()">
-                SUBMIT FINAL REPORT
-            </button>
-
-            <div id="finalResult"
-                 class="panel"
-                 style="display:none;margin-top:20px">
-
-                <div class="panel-body"></div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
+    </section>
 
 </main>
-</div>
-</div>
 
 
-<!-- MODAL -->
+<footer>
 
-<div id="modal" class="modal">
-
-    <div class="modal-box">
-
-        <div class="panel-head"
-             id="modalTitle">
-        </div>
-
-        <div class="modal-body"
-             id="modalBody">
-        </div>
-
-        <div style="padding:15px;border-top:1px solid #202b2c">
-
-            <button class="btn"
-                    onclick="closeModal()">
-                CLOSE
-            </button>
-
-        </div>
-
+    <div>
+        INTER-ZONE NETWORK
     </div>
 
-</div>
-
-
-<script>
-
-/* =========================================================
-   GAME STATE
-========================================================= */
-
-const state = {
-
-    evidence: [],
-
-    photo: [],
-
-    people: [],
-
-    cctv: false,
-
-    archive: false,
-
-    culprit: null
-
-};
-
-
-/* =========================================================
-   NAVIGATION
-========================================================= */
-
-function openSection(id,button){
-
-    document.querySelectorAll(".section")
-        .forEach(s=>s.classList.remove("active"));
-
-    document.getElementById(id)
-        .classList.add("active");
-
-    document.querySelectorAll(".menu button")
-        .forEach(b=>b.classList.remove("active"));
-
-    if(button)
-        button.classList.add("active");
-
-    window.scrollTo({
-        top:0,
-        behavior:"smooth"
-    });
-
-}
-
-
-/* =========================================================
-   CLOCK
-========================================================= */
-
-function updateClock(){
-
-    const d=new Date();
-
-    document.getElementById("clock").innerText=
-        d.getFullYear()+"-"+
-        String(d.getMonth()+1).padStart(2,"0")+"-"+
-        String(d.getDate()).padStart(2,"0")+" "+
-        String(d.getHours()).padStart(2,"0")+":"+
-        String(d.getMinutes()).padStart(2,"0")+":"+
-        String(d.getSeconds()).padStart(2,"0");
-
-}
-
-setInterval(updateClock,1000);
-updateClock();
-
-
-/* =========================================================
-   LOG
-========================================================= */
-
-function log(text){
-
-    const box=document.getElementById("systemLog");
-
-    box.innerHTML+=`
-        <div class="log-line">
-            ${text}
-        </div>
-    `;
-
-}
-
-
-/* =========================================================
-   REGION
-========================================================= */
-
-function regionInfo(region){
-
-    const data={
-
-        "포인세티아":
-        "지역 기록 정상. 현재 사건과 직접적인 연결 기록 없음.",
-
-        "아르메리아":
-        "최근 제피란테스발 화물의 이동량이 증가했다.",
-
-        "아스포델":
-        "석산교 관련 시민 제보 1건 존재. 사실 여부 미확인.",
-
-        "제피란테스":
-        "중립 구역. 최근 석산교 관련 시민 제보가 급증했다. 일부 폐쇄 시설에 대한 접근 기록이 비정상적으로 증가함."
-
-    };
-
-    document.getElementById("regionResult")
-        .innerHTML=
-        `<div class="panel-body">
-            <strong>${region}</strong><br><br>
-            ${data[region]}
-        </div>`;
-
-}
-
-
-/* =========================================================
-   CHECKPOINT
-========================================================= */
-
-function inspectCheckpoint(){
-
-    const id=document.getElementById("citizenID").value.trim();
-
-    const result=document.getElementById("checkpointResult");
-
-    result.style.display="block";
-
-    if(
-        id==="ATC-SK-0717" ||
-        id.toUpperCase()==="SK-0717"
-    ){
-
-        result.innerHTML=`
-            <div class="panel-body">
-                <span class="yellow">RECORD FOUND</span><br><br>
-
-                NAME: ███████<br>
-                ORIGIN: 제피란테스<br>
-                DESTINATION: 아르메리아<br>
-                TIME: 01:58<br>
-                STATUS: INSPECTION BYPASSED<br><br>
-
-                <span class="alert">
-                NOTE: SECURITY OVERRIDE USED
-                </span>
-            </div>
-        `;
-
-        log("[CHECKPOINT] Suspicious transit record accessed.");
-
-    }else{
-
-        result.innerHTML=`
-            <div class="panel-body muted">
-                해당 ID의 특별 기록을 찾지 못했습니다.<br><br>
-                힌트: 사건 현장에서 발견된 기록을 확인하십시오.
-            </div>
-        `;
-
-    }
-
-}
-
-
-/* =========================================================
-   PERSON DATABASE
-========================================================= */
-
-function searchPerson(){
-
-    const q=
-        document.getElementById("personSearch")
-        .value
-        .trim()
-        .toLowerCase();
-
-    const result=document.getElementById("personResult");
-
-    if(
-        q.includes("석산") ||
-        q.includes("seoksan")
-    ){
-
-        result.innerHTML=`
-
-            <div class="panel">
-
-                <div class="panel-head">
-                    RECORD // SEOKSAN CHURCH
-                </div>
-
-                <div class="panel-body">
-
-                    AFFILIATION:
-                    SEOKSAN RELIGIOUS GROUP<br><br>
-
-                    REGION:
-                    ZEPHYRANTHES<br><br>
-
-                    PUBLIC STATUS:
-                    REGISTERED COMMUNITY<br><br>
-
-                    <span class="yellow">
-                    INTERNAL NOTE:
-                    </span><br>
-
-                    "세계의 주인은 우리다."
-                    라는 교리를 반복적으로 전파한
-                    집단으로 시민 제보가 존재함.<br><br>
-
-                    <span class="alert">
-                    RESTRICTED CONNECTION:
-                    3 MEMBERS CONNECTED TO INCIDENT #047
-                    </span>
-
-                </div>
-
-            </div>
-        `;
-
-        log("[DATABASE] SEOKSAN CHURCH record accessed.");
-
-    }else{
-
-        result.innerHTML=`
-            <div class="muted">
-                검색 결과가 없습니다.
-            </div>
-        `;
-
-    }
-
-}
-
-
-/* =========================================================
-   CARGO
-========================================================= */
-
-function trackCargo(){
-
-    const code=
-        document.getElementById("cargoCode")
-        .value
-        .trim()
-        .toUpperCase();
-
-    const result=
-        document.getElementById("cargoResult");
-
-    result.style.display="block";
-
-    if(code==="CARGO-Z-0417"){
-
-        result.innerHTML=`
-
-            <div class="panel-body">
-
-                <span class="green">CARGO FOUND</span><br><br>
-
-                CODE: CARGO-Z-0417<br>
-                ORIGIN: ZEPHYRANTHES<br>
-                DESTINATION: B-17 RESEARCH FACILITY<br>
-                DEPARTURE: 01:21<br>
-                ARRIVAL: 02:06<br><br>
-
-                CONTENT:
-                SECURITY EQUIPMENT<br><br>
-
-                <span class="alert">
-                SECONDARY CONTENT DETECTED
-                </span><br>
-
-                UNREGISTERED RELIGIOUS MATERIAL
-
-            </div>
-        `;
-
-        log("[CARGO] CARGO-Z-0417 contains unregistered material.");
-
-    }else{
-
-        result.innerHTML=`
-            <div class="panel-body muted">
-                CARGO NOT FOUND.
-            </div>
-        `;
-
-    }
-
-}
-
-
-/* =========================================================
-   SCANNER
-========================================================= */
-
-function scanCode(){
-
-    const code=
-        document.getElementById("scanCode")
-        .value
-        .trim()
-        .toUpperCase();
-
-    const result=
-        document.getElementById("scanResult");
-
-    result.style.display="block";
-
-    if(code==="SK-047" || code==="SEOKSAN"){
-
-        result.innerHTML=`
-
-            <div class="panel-body">
-
-                SCAN COMPLETE.<br><br>
-
-                SYMBOL CLASS:
-                RELIGIOUS / RESTRICTED<br><br>
-
-                ASSOCIATED GROUP:
-                <span class="yellow">
-                SEOKSAN CHURCH
-                </span><br><br>
-
-                FREQUENCY:
-                17 RECORDED INSTANCES<br><br>
-
-                <span class="alert">
-                MATCH WITH INCIDENT #047
-                </span>
-
-            </div>
-        `;
-
-        log("[SCANNER] SEOKSAN symbol matched.");
-
-    }else{
-
-        result.innerHTML=`
-            <div class="panel-body muted">
-                NO MATCH.
-            </div>
-        `;
-
-    }
-
-}
-
-
-/* =========================================================
-   ARCHIVE
-========================================================= */
-
-function openArchive(type){
-
-    const result=
-        document.getElementById("archiveResult");
-
-    let html="";
-
-    if(type==="history"){
-
-        html=`
-            <div class="panel-body">
-                <strong>ZEPHYRANTHES HISTORICAL RECORD</strong><br><br>
-
-                제피란테스는 네 지역 사이에서
-                중립적 역할을 유지해 온 지역이다.<br><br>
-
-                외부 세력의 직접적인 영향력을
-                제한하는 정책이 오랫동안 유지되었다.
-            </div>
-        `;
-
-    }
-
-    if(type==="religion"){
-
-        html=`
-            <div class="panel-body">
-                <strong>RELIGIOUS ORGANIZATION RECORD</strong><br><br>
-
-                석산교는 공식적으로
-                공동체와 구호 활동을 중심으로
-                활동하는 종교 단체로 등록되어 있다.<br><br>
-
-                그러나 비공개 문서에서는
-                "세계의 주인은 우리"라는
-                교리가 반복적으로 언급된다.
-            </div>
-        `;
-
-    }
-
-    if(type==="restricted"){
-
-        state.archive=true;
-
-        html=`
-            <div class="panel-body">
-
-                <span class="alert">
-                RESTRICTED FILE UNLOCKED
-                </span><br><br>
-
-                [DOCUMENT 19-AX]<br><br>
-
-                석산교 내부 지도부가
-                여러 지역의 행정 시스템과
-                접촉해 온 기록이 발견되었다.<br><br>
-
-                목적은 확인되지 않았으며
-                대부분의 기록이 삭제되어 있다.<br><br>
-
-                <span class="yellow">
-                INCIDENT #047과 관련된 인물
-                3명의 이름이 부분적으로 남아 있다.
-                </span>
-
-            </div>
-        `;
-
-        document.getElementById("statArchive")
-            .innerText="UNLOCKED";
-
-        log("[ARCHIVE] RESTRICTED FILE unlocked.");
-
-    }
-
-    if(type==="incident"){
-
-        html=`
-            <div class="panel-body">
-
-                INCIDENT #047<br><br>
-
-                02:13:49 CCTV INTERRUPTION<br>
-                02:17:03 SECURITY OVERRIDE<br>
-                02:21:18 SEOKSAN ACTIVITY<br><br>
-
-                세 기록의 시간대가
-                서로 연결되어 있다.
-
-            </div>
-        `;
-
-    }
-
-    result.innerHTML=html;
-
-}
-
-
-/* =========================================================
-   EVIDENCE
-========================================================= */
-
-function collectEvidence(n){
-
-    if(!state.evidence.includes(n))
-        state.evidence.push(n);
-
-    const data={
-
-        1:
-        "확대 분석 결과 일반 금속이 아니다. 보안 장비 Model-X7의 파편으로 판명.",
-
-        2:
-        "시계는 02:17에 정지했다. 내부 저장장치에는 짧은 전자기 간섭 기록이 남아 있다.",
-
-        3:
-        "붉은 섬유는 특정 보안복의 안감과 일치한다.",
-
-        4:
-        "문양은 석산교 내부 기록에서 사용하는 상징과 일치한다."
-
-    };
-
-    document.getElementById("ev"+n).innerHTML=
-        `<div class="evidence-result" style="display:block">
-            ✓ COLLECTED<br><br>${data[n]}
-        </div>`;
-
-    updateStats();
-
-    log(`[EVIDENCE] E-0${n} collected.`);
-
-}
-
-
-/* =========================================================
-   PHOTO
-========================================================= */
-
-function zoomPhoto(n){
-
-    if(!state.photo.includes(n))
-        state.photo.push(n);
-
-    const data={
-
-        1:
-        "금속 파편의 각인을 확대했다. SECURITY / MODEL-X7.",
-
-        2:
-        "시계 뒷면에 작은 저장 장치가 숨겨져 있다.",
-
-        3:
-        "섬유 끝부분에서 석산교 문양과 유사한 미세한 자수가 발견된다."
-
-    };
-
-    document.getElementById("photoResult")
-        .innerHTML=`
-            <span class="green">ENHANCEMENT COMPLETE</span>
-            <br><br>
-            ${data[n]}
-        `;
-
-}
-
-
-/* =========================================================
-   CCTV
-========================================================= */
-
-function cctvTime(time){
-
-    document.getElementById("cctvResult")
-        .innerHTML=
-        `[CAM-B17] ${time}:00<br>
-         SIGNAL STABLE.<br>
-         FRAME READY.`;
-
-}
-
-function restoreCCTV(){
-
-    state.cctv=true;
-
-    document.getElementById("cctvResult")
-        .innerHTML=`
-
-        [SYSTEM] FRAME RECOVERY START<br>
-        [SYSTEM] █████████████████ 100%<br><br>
-
-        [02:16:58]<br>
-        서버실 방향으로 이동하는 인물 확인.<br><br>
-
-        [02:17:03]<br>
-        SECURITY OVERRIDE DETECTED.<br><br>
-
-        [02:17:12]<br>
-        서버실 내부 단말에서
-        CCTV DELETE COMMAND 실행.<br><br>
-
-        <span class="alert">
-        ACCESS ORIGIN: SECURITY SERVER ROOM
-        </span>
-
-    `;
-
-    document.getElementById("statCCTV")
-        .innerText="RESTORED";
-
-    log("[CCTV] Damaged frame restored.");
-
-}
-
-
-/* =========================================================
-   INTERROGATION
-========================================================= */
-
-const suspects={
-
-    hana:{
-        name:"한유진",
-        role:"SECURITY OFFICER",
-        lines:[
-            [
-                "사건 당시 어디에 있었습니까?",
-                "서버실에서 CCTV 시스템을 확인하고 있었습니다."
-            ],
-            [
-                "02:17에 보안 시스템에 접근했습니까?",
-                "시스템 오류를 확인했을 뿐입니다."
-            ],
-            [
-                "석산교 문양을 알고 있습니까?",
-                "제피란테스에서는 흔히 볼 수 있는 문양 아닌가요?"
-            ]
-        ]
-    },
-
-    min:{
-        name:"민도윤",
-        role:"RESEARCHER",
-        lines:[
-            [
-                "피해자와 마지막으로 연락한 이유는?",
-                "연구 결과에 대해 이야기했습니다."
-            ],
-            [
-                "02:17에 어디에 있었습니까?",
-                "휴게실에 있었습니다."
-            ],
-            [
-                "CARGO-Z-0417을 알고 있습니까?",
-                "처음 듣는 이름입니다."
-            ]
-        ]
-    },
-
-    rae:{
-        name:"레이",
-        role:"EXTERNAL CONTRACTOR",
-        lines:[
-            [
-                "사건 당시 건물에 있었습니까?",
-                "아니요. 외부에 있었습니다."
-            ],
-            [
-                "출입 기록에는 당신의 ID가 있습니다.",
-                "ID가 복제되었을 가능성이 있습니다."
-            ],
-            [
-                "석산교와 관계가 있습니까?",
-                "그런 종교에는 관심 없습니다."
-            ]
-        ]
-    }
-
-};
-
-
-function interrogate(id){
-
-    if(!state.people.includes(id))
-        state.people.push(id);
-
-    const s=suspects[id];
-
-    const box=document.getElementById("interrogation");
-
-    box.style.display="block";
-
-    document.getElementById("suspectHeader")
-        .innerText=
-        `INTERROGATION // ${s.name} // ${s.role}`;
-
-    const dialogue=
-        document.getElementById("dialogue");
-
-    const questions=
-        document.getElementById("questions");
-
-    dialogue.innerHTML=
-        `<div class="dialogue">
-            조사 대상이 확인되었습니다.
-        </div>`;
-
-    questions.innerHTML="";
-
-    s.lines.forEach((line,i)=>{
-
-        const b=document.createElement("button");
-
-        b.className="btn";
-
-        b.style.display="block";
-        b.style.width="100%";
-        b.style.marginBottom="7px";
-
-        b.innerText=
-            "Q"+(i+1)+" // "+line[0];
-
-        b.onclick=()=>{
-
-            dialogue.innerHTML+=`
-
-                <div class="dialogue question">
-                    <strong>INVESTIGATOR</strong><br>
-                    ${line[0]}
-                </div>
-
-                <div class="dialogue">
-                    <strong>${s.name}</strong><br>
-                    ${line[1]}
-                </div>
-
-            `;
-
-        };
-
-        questions.appendChild(b);
-
-    });
-
-    updateStats();
-
-}
-
-
-/* =========================================================
-   CONCLUSION
-========================================================= */
-
-function chooseCulprit(id){
-
-    state.culprit=id;
-
-    const names={
-        hana:"한유진",
-        min:"민도윤",
-        rae:"레이"
-    };
-
-    document.getElementById("chosen")
-        .innerHTML=
-        `SELECTED SUSPECT :
-        <span class="yellow">${names[id]}</span>`;
-
-}
-
-
-function submitCase(){
-
-    const text=
-        document.getElementById("finalText")
-        .value
-        .trim();
-
-    const result=
-        document.getElementById("finalResult");
-
-    if(!state.culprit){
-
-        alert("용의자를 선택하십시오.");
-
-        return;
-
-    }
-
-    if(text.length<30){
-
-        alert("최종 결론을 30자 이상 작성하십시오.");
-
-        return;
-
-    }
-
-    result.style.display="block";
-
-    if(state.culprit==="hana"){
-
-        result.innerHTML=`
-
-            <div class="panel-body">
-
-                <span class="green">
-                CASE STATUS // SOLVED
-                </span>
-
-                <br><br>
-
-                선택한 용의자는 사건의 주요 기록과
-                일치하는 인물입니다.
-
-                <hr>
-
-                <strong>RECONSTRUCTION</strong>
-
-                <p>
-                02:13:49 CCTV 신호가 끊겼고,
-                02:17 보안 시스템에 접근 기록이 남았다.
-                </p>
-
-                <p>
-                CCTV 복원 결과 서버실 내부 단말에서
-                삭제 명령이 실행된 사실이 확인되었다.
-                </p>
-
-                <p>
-                현장에서 발견된 보안 장비 파편과
-                붉은 섬유는 해당 인물의 접근 권한과
-                연결된다.
-                </p>
-
-                <p>
-                또한 석산교 관련 화물과 문양,
-                비공개 기록이 같은 시간대에 연결된다.
-                </p>
-
-                <span class="yellow">
-                그러나 석산교가 사건 전체를 지시했다는
-                사실은 현재 확보된 자료만으로 확정할 수 없다.
-                추가 수사가 필요하다.
-                </span>
-
-                <br><br>
-
-                INCIDENT #047 :
-                <span class="green">PRIMARY SUSPECT IDENTIFIED</span>
-
-            </div>
-        `;
-
-    }else{
-
-        result.innerHTML=`
-
-            <div class="panel-body">
-
-                <span class="alert">
-                CASE STATUS // INCONSISTENT
-                </span>
-
-                <br><br>
-
-                선택한 인물의 진술과
-                핵심 기록 사이에 불일치가 존재합니다.
-
-                <hr>
-
-                다시 CHECKPOINT,
-                CARGO,
-                CCTV,
-                PERSON DATABASE,
-                ARCHIVE를 교차 확인하십시오.
-
-            </div>
-        `;
-
-    }
-
-}
-
-
-/* =========================================================
-   STATS
-========================================================= */
-
-function updateStats(){
-
-    document.getElementById("statEvidence")
-        .innerText=
-        `${state.evidence.length} / 4`;
-
-    document.getElementById("statPeople")
-        .innerText=
-        `${state.people.length} / 3`;
-
-}
-
-
-/* =========================================================
-   INIT
-========================================================= */
-
-updateStats();
-
-</script>
+    <div>
+        DATABASE STATUS : <span>ONLINE</span>
+    </div>
+
+</footer>
 
 </body>
 </html>
